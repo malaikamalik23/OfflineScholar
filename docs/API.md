@@ -11,6 +11,7 @@ Base URL `http://localhost:8000/api` · interactive docs at `/docs` · errors ar
 | `DELETE /documents/{id}` | removes file, chunks and vectors (204) |
 | `GET/POST /subjects` · `DELETE /subjects/{id}` | manage subjects |
 | `POST /chat/ask` | grounded Q&A (below) |
+| `POST /quiz/generate` | `{subject_id, topic, n_questions (1-20, default 5)}` → multiple-choice questions written by `exam_engine` from the subject's lecture notes, each with `source` document + page. Uses the local LLM (≈10–20 s per question on CPU), falls back to extractive questions; may return `questions: []` with a note |
 | `POST /quiz/submit` | store a graded quiz, update per-topic performance |
 | `GET /analysis/{subject_id}` · `GET /revision/{subject_id}` | provided by `exam_engine` (501 until installed) |
 | `GET /health` | database, Ollama, model, embeddings (`available` is false when offline and the model isn't saved locally), OCR status; `status` is `ok` only if database, LLM and embeddings are all usable, else `degraded` |

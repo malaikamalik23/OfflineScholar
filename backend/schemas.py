@@ -93,6 +93,20 @@ class QuizAnswerIn(BaseModel):
     question_ref: str | None = Field(default=None, max_length=200)
 
 
+class QuizGenerate(BaseModel):
+    subject_id: int
+    topic: str = Field(min_length=2, max_length=200)
+    n_questions: int = Field(default=5, ge=1, le=20)
+
+    @field_validator("topic")
+    @classmethod
+    def _strip(cls, v: str) -> str:
+        v = v.strip()
+        if len(v) < 2:
+            raise ValueError("topic is too short")
+        return v
+
+
 class QuizSubmit(BaseModel):
     subject_id: int
     answers: list[QuizAnswerIn] = Field(min_length=1, max_length=500)
