@@ -41,9 +41,11 @@ def _gather_and_analyse(subject_id: int, db) -> dict[str, Any]:
 
     paper_pages, n1 = bridge.load_pages(db, subject_id, "past_paper")
     syl_pages, n2 = bridge.load_pages(db, subject_id, "syllabus")
-    lecture_chunks = bridge.load_chunks(db, subject_id, "lecture")
+    # Lecture notes are compared page by page (re-read from the stored PDF, so page footers can be removed
+    # and the evidence page numbers are exact); stored chunks are only the fallback.
+    lecture_chunks, n3 = bridge.load_pages(db, subject_id, "lecture")
     quiz_records = bridge.load_quiz_records(db, subject_id)
-    notes += n1 + n2
+    notes += n1 + n2 + n3
 
     syllabus = bridge.syllabus_topics_from(syl_pages) if syl_pages else []
     if not syl_pages:
@@ -80,7 +82,7 @@ def _gather_and_analyse(subject_id: int, db) -> dict[str, Any]:
         "engine": engine,
         "subject": {"id": subject_id, "name": subject.name if subject else None},
         "documents": {"past_paper_pages": len(paper_pages), "syllabus_pages": len(syl_pages),
-                      "lecture_chunks": len(lecture_chunks), "quiz_answers": len(quiz_records)},
+                      "lecture_pages": len(lecture_chunks), "quiz_answers": len(quiz_records)},
         "past_papers": past, "syllabus_coverage": coverage, "weak_topics": weak, "notes": notes,
         "matching": engine.embedder.kind,
     }

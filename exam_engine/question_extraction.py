@@ -29,13 +29,14 @@ sentences that end in ``?`` or begin with an exam command word.
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections import defaultdict
 from typing import Iterable
 
 from .text_utils import COMMAND_WORDS, content_terms, split_sentences
 
 _MAIN_RE = re.compile(
-    r"^\s*(?:(?:question|ques|qn|q)\s*\.?\s*)?(\d{1,3})\s*(?:[.):\-]\s*|\s+(?=\([a-h]\)))(.*)$",
+    r"^\s*(?:(?:question|ques|qn|q)\s*\.?\s*)?(\d{1,3})\s*(?:[.):\-](?!\d)\s*|\s+(?=\([a-h]\)))(.*)$",
     re.IGNORECASE,
 )
 _SUB_RE = re.compile(r"^\s*\(?([a-h]|iv|vi{0,3}|i{1,3}|ix|x)\)\s*(.*)$", re.IGNORECASE)
@@ -47,6 +48,7 @@ _INSTRUCTION_RE = re.compile(
     r"registration\s*(no|number)|reg\.?\s*no|^\s*name\s*:|^\s*instructions?\b\s*:?|"
     r"attempt\s+(all|any|\w+\s+questions)|answer\s+(all|any)|all\s+questions\s+(are\s+)?compulsory|"
     r"candidates\s+(must|should)|use\s+of\s+(calculator|tables)|invigilator|"
+    r"your\s+name|\bmit\s+id\b|student\s+id|grade\s+you\s+would\s+give|"
     r"^\s*note\s*[:\-]|^\s*\*+\s*(end|best)|^\s*[-=_*]{3,}\s*$)",
     re.IGNORECASE,
 )
@@ -252,7 +254,7 @@ def _finalise(records: list[dict], document_id, document_name) -> list[dict]:
 def extract_questions(text: str, *, document_id: str | None = None,
                       document_name: str | None = None, page_number: int | None = None) -> list[dict]:
     """Extract and separate the questions in one block of paper text."""
-    lines = [(ln, page_number) for ln in (text or "").splitlines()]
+    lines = [(ln, page_number) for ln in unicodedata.normalize("NFKC", text or "").splitlines()]
     records = _scan(lines)
     if not records:
         records = _fallback_unnumbered_safe(lines)
@@ -290,7 +292,7 @@ def extract_questions_from_chunks(chunks: Iterable[dict]) -> list[dict]:
         pages = sorted(by_doc[did], key=lambda c: (c.get("page_number") is None, c.get("page_number") or 0))
         lines: list[tuple[str, int | None]] = []
         for c in pages:
-            for ln in (c.get("text") or "").splitlines():
+            for ln in unicodedata.normalize("NFKC", c.get("text") or "").splitlines():
                 lines.append((ln, c.get("page_number")))
         name = pages[0].get("document_name")
         records = _scan(lines) or _fallback_unnumbered_safe(lines)

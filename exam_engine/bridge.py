@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import logging
 import re
+import unicodedata
 from typing import Iterable
 
 from .embeddings import CallableEmbedder, TfidfEmbedder
@@ -150,11 +151,50 @@ def pages_from_chunks(chunks: Iterable[dict]) -> list[dict]:
     return out
 
 
+_SYL_HEADER = re.compile(r"^\s*(?:topics(?:\s+covered)?|course\s+(?:outline|contents?)|calendar|schedule|syllabus\s+contents?)\s*:?\s*$", re.I)
+_SYL_NOISE = re.compile(
+    r"https?:|www\.|isbn|\bpp?\.\s*\d|\bproblem\s+sets?\b|\bprojects?\s+(?:due|out)\b|\bexams?\s+back\b|"
+    r"\b(?:due|out)\b\s*$|\blec(?:ture)?\s*#|key\s+dates|\[\s*\d+\s*[ap]m\s*\]|"
+    r"^\s*(?:menu|more info|feedback|description|grading|activities|percentages|text|exams?|project|"
+    r"midterm|final|calendar|topics|syllabus|lectures?|problem sets)\s*$|recommended citation|"
+    r"creative commons|terms and conditions|accessibility|proud member|freely sharing|learn more|courses?\s*&\s*materials|over\s+\d|©|\bmit opencourseware\b|downloaded on|collaborat|\bgrade\b|\bpercent|\d{1,2}/\d{1,2}/\d{2,4}",
+    re.I)
+_SYL_FILLER = {"introduction", "wrap up", "overview", "review", "guest lecture", "recap", "summary", "conclusion"}
+
+
+def _clean_syllabus_text(text: str) -> str:
+    """Make a syllabus that was printed from a web page / PDF parse as a plain topic list.
+
+    If a 'Topics' / 'Calendar' / 'Course outline' heading exists, only what follows it is used (the part
+    of the page before it is usually logistics: grading, textbooks...). Lines that are clearly not topics
+    (URLs, ISBNs, problem-set dates, ...) are dropped, and 'A, B, C' lecture titles become separate topics.
+    """
+    text = unicodedata.normalize("NFKC", text or "")
+    lines = text.splitlines()
+    heads = [i for i, ln in enumerate(lines) if _SYL_HEADER.match(ln)]
+    if heads:
+        lines = lines[heads[-1] + 1:]
+    out: list[str] = []
+    for ln in lines:
+        ln = re.sub(r"\(\s*(?:cont\.?|continued)\s*\)", "", ln, flags=re.I).strip()
+        if not ln or _SYL_NOISE.search(ln):
+            continue
+        if ":" not in ln and "," in ln:
+            parts = [p.strip(" .;") for p in ln.split(",")]
+        else:
+            parts = [ln]
+        for p in parts:
+            p = re.sub(r"^(?:and|or)\s+", "", p, flags=re.I)
+            if len(p) >= 4 and p.lower().strip(" .") not in _SYL_FILLER and not re.fullmatch(r"[\d\W]+", p):
+                out.append(p)
+    return "\n".join(out)
+
+
 def syllabus_topics_from(pages: list[dict]) -> list[dict]:
     """Syllabus topics from page text (one topic per line; 'Topic: sub, sub' gives subtopics)."""
     from .syllabus_coverage import parse_syllabus_text
 
-    topics = parse_syllabus_text("\n".join(p["text"] for p in pages))
+    topics = parse_syllabus_text(_clean_syllabus_text("\n".join(p["text"] for p in pages)))
     seen, out = set(), []
     for t in topics:
         name = t["name"].strip()

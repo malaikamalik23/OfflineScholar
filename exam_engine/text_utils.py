@@ -8,6 +8,7 @@ simple and conservative: its only job is to make "networks"/"network",
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections import Counter
 from typing import Iterable, Sequence
 
@@ -78,7 +79,7 @@ def stem(word: str) -> str:
 
 def tokenize(text: str) -> list[str]:
     """Lower-cased alphanumeric tokens (hyphens/underscores split)."""
-    text = (text or "").lower().replace("_", " ")
+    text = unicodedata.normalize("NFKC", text or "").lower().replace("_", " ")  # ligatures: "ﬁ" -> "fi"
     return _TOKEN_RE.findall(text)
 
 
@@ -193,3 +194,37 @@ def safe_div(a: float, b: float) -> float:
 
 def ensure_sequence(x: Sequence | None) -> list:
     return list(x) if x else []
+
+
+def strip_running_lines(records: Sequence[dict], min_pages: int = 3, share: float = 0.4) -> list[dict]:
+    """Remove running headers/footers ("Cite as: ...", "Page 3 of 9", a course title on every page).
+
+    A line (digits ignored) that shows up on at least ``min_pages`` pages AND on at least ``share`` of the
+    pages of its document is page furniture, not content. Documents with fewer pages are left alone.
+    Records are {document_id, page_number, text, ...}; new dicts are returned.
+    """
+    def key(line: str) -> str:
+        return re.sub(r"\d+", "#", re.sub(r"\s+", " ", unicodedata.normalize("NFKC", line)).strip().lower())
+
+    pages_of_doc: dict = {}
+    seen: dict = {}
+    for r in records:
+        doc = r.get("document_id")
+        pages_of_doc.setdefault(doc, set()).add(r.get("page_number"))
+        for ln in (r.get("text") or "").splitlines():
+            k = key(ln)
+            if len(k) >= 8:
+                seen.setdefault((doc, k), set()).add(r.get("page_number"))
+    furniture = set()
+    for (doc, k), pgs in seen.items():
+        n = len(pages_of_doc[doc])
+        if n >= min_pages and len(pgs) >= min_pages and len(pgs) >= share * n:
+            furniture.add((doc, k))
+    if not furniture:
+        return [dict(r) for r in records]
+    out = []
+    for r in records:
+        doc = r.get("document_id")
+        kept = [ln for ln in (r.get("text") or "").splitlines() if (doc, key(ln)) not in furniture]
+        out.append({**r, "text": "\n".join(kept)})
+    return out

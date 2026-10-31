@@ -369,3 +369,46 @@ def test_every_engine_output_is_json_serialisable():
 def test_lecture_topics_report_documents_and_pages():
     topics = ExamEngine().lecture_topics(LECTURES, top_k=10)
     assert topics and all("documents" in t and t["documents"][0]["pages"] for t in topics)
+
+
+# ---- regressions found on real PDFs (MIT OCW 6.867 exams, lectures and a web-printed syllabus) ----
+def test_course_number_is_not_a_question_number():
+    qs = extract_questions("6.867 Machine learning Final exam (Fall 2003)\n1. (3 points) Define overfitting.\n")
+    assert [q["number"] for q in qs] == ["1"]
+
+
+def test_ligatures_are_normalised_and_admin_lines_ignored():
+    qs = extract_questions("1. Your name and MIT ID:\n2. (3 points) Explain why classiﬁers overﬁt noisy data.\n")
+    assert len(qs) == 1 and "classifiers overfit" in qs[0]["text"]
+
+
+def test_running_footers_are_removed_from_pages():
+    from exam_engine.text_utils import strip_running_lines
+
+    pages = [{"document_id": 1, "page_number": i, "text": f"{i}. Define precision for model number {'abcd'[i-1]}x.\nCite as: Some Course, Fall 2006. Page {i}"}
+             for i in range(1, 5)]
+    out = strip_running_lines(pages)
+    assert all("Cite as" not in p["text"] and "Define precision" in p["text"] for p in out)
+    two = strip_running_lines(pages[:2])                       # too few pages to call anything a footer
+    assert all("Cite as" in p["text"] for p in two)
+
+
+def test_web_printed_syllabus_keeps_only_topics():
+    from exam_engine.bridge import syllabus_topics_from
+
+    text = ("menu\nSyllabus\nGrading\nBishop. Neural Networks. ISBN: 9780198538646\nCalendar\nLEC #\nTOPICS\nKEY DATES\n"
+            "Introduction, linear classification, perceptron update rule\nProblem set 1 out\n"
+            "Boosting, margin, and complexity\nHMMs (cont.)\nTerms and Conditions\n© 2001–2026 MIT")
+    names = [t["name"] for t in syllabus_topics_from([{"text": text}])]
+    assert names == ["linear classification", "perceptron update rule", "Boosting", "margin", "complexity", "HMMs"]
+
+
+def test_quiz_skips_fragments_formulas_and_context_dependent_sentences():
+    from exam_engine.quiz_generator import _clean_concept, _clean_definition, _clean_sentence, _clean_term
+
+    assert not _clean_term("Assuming each example") and not _clean_term("goal here") and _clean_term("Probability estimates")
+    assert not _clean_definition("that the vector of kθk2 + X log 1 + exp −yt(θ") and _clean_definition("a function that maps data to parameters")
+    assert not _clean_sentence("This is often referred to as the estimation problem in many textbooks today.")
+    assert not _clean_sentence("X X X X X 6 The sum in Eq.(19) is the difference between probabilities.")
+    assert _clean_sentence("Regularization is used to help stabilize the minimization of the objective function.")
+    assert not _clean_concept("Figure 2a") and not _clean_concept("other words") and _clean_concept("decision boundary")
