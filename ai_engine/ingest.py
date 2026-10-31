@@ -29,11 +29,16 @@ def ingest_document(document_id: int, services: Services | None = None) -> None:
             subject_id, path = doc.subject_id, doc.stored_path
 
         extracted = extract_document(
-            path, ocr_enabled=cfg.ocr_enabled, ocr_language=cfg.ocr_language, ocr_dpi=cfg.ocr_dpi
+            path, ocr_enabled=cfg.ocr_enabled, ocr_language=cfg.ocr_language, ocr_dpi=cfg.ocr_dpi,
+            tesseract_cmd=cfg.tesseract_cmd,
         )
         pieces = chunk_pages(extracted.pages, cfg.chunk_size, cfg.chunk_overlap)
         if not pieces:
             raise ExtractionError("no_extractable_text", "No readable text was found in this PDF.")
+
+        # Embed before opening the write transaction: embedding a large PDF takes tens of seconds on a
+        # CPU, and holding SQLite's write lock that long makes every other write fail ("database is locked").
+        vectors = svc.embedder.embed([p.text for p in pieces])
 
         with session_scope() as db:
             rows = [Chunk(document_id=document_id, page_number=p.page_number,
@@ -41,7 +46,6 @@ def ingest_document(document_id: int, services: Services | None = None) -> None:
             db.add_all(rows)
             db.flush()  # assigns chunk ids == FAISS vector ids
             ids = [r.id for r in rows]
-            vectors = svc.embedder.embed([r.text for r in rows])
             svc.vector_store.add(subject_id, ids, vectors)
             added_ids = ids
 

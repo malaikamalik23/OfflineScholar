@@ -9,11 +9,11 @@ from sqlalchemy.orm import Session
 
 from ai_engine.ingest import ingest_document
 from ai_engine.runtime import get_services
-from backend.config import get_settings
 from backend.database import get_db
 from backend.errors import AppError
 from backend.models import Chunk, Document, Subject
 from backend.schemas import DocType, DocumentOut, DocumentStatus
+from backend.storage import remove_file
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -53,7 +53,7 @@ async def upload_document(
 ):
     """Upload a PDF. Processing (extract -> chunk -> embed -> index) runs in the background;
     poll GET /documents/{id}/status until status is `ready` or `failed`."""
-    settings = get_settings()
+    settings = get_services().settings  # the running app's settings, not the global default
     original = Path(file.filename or "").name
     if not original.lower().endswith(".pdf"):
         raise AppError(400, "unsupported_file_type", "Only .pdf files are accepted.")
@@ -119,7 +119,7 @@ def delete_document(document_id: int, db: Session = Depends(get_db)):
         raise AppError(409, "document_processing", "Wait for processing to finish before deleting.")
     chunk_ids = [cid for (cid,) in db.query(Chunk.id).filter(Chunk.document_id == doc.id)]
     get_services().vector_store.remove(doc.subject_id, chunk_ids)
-    path = Path(doc.stored_path)
+    path = doc.stored_path
     db.delete(doc)
     db.commit()
-    path.unlink(missing_ok=True)
+    remove_file(path)  # a locked file (Windows) must not turn a completed delete into a 500

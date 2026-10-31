@@ -27,13 +27,6 @@ PAPERS = {
 SYLLABUS = ["Syllabus\nNeural networks\nK-means clustering\nOverfitting\nReinforcement learning"]
 
 
-@pytest.fixture(autouse=True)
-def _uploads_in_tmp(monkeypatch, settings):
-    """backend.routes.documents reads the global get_settings(); point it at the per-test settings so these
-    tests write PDFs to a temp dir instead of the real data/uploads."""
-    monkeypatch.setattr("backend.routes.documents.get_settings", lambda: settings)
-
-
 @pytest.fixture()
 def subject(client, tmp_path):
     """A subject with 3 past papers, a syllabus and lecture notes, all through the upload API."""

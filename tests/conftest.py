@@ -71,6 +71,15 @@ HISTORY = [
 ]
 
 
+@pytest.fixture(autouse=True)
+def _hermetic_env(monkeypatch):
+    """Tests must not depend on the developer's OS_* variables (e.g. OS_OFFLINE=1 or OS_MIN_SCORE)."""
+    import os
+
+    for name in [n for n in os.environ if n.upper().startswith("OS_")]:
+        monkeypatch.delenv(name)
+
+
 @pytest.fixture
 def llm() -> FakeLLM:
     return FakeLLM()
@@ -101,3 +110,18 @@ def upload(client: TestClient, path: Path, **form) -> dict:
         r = client.post("/api/documents/upload", files={"file": (path.name, f, "application/pdf")}, data=form)
     assert r.status_code == 202, r.text
     return r.json()
+
+
+def make_slide_pdf(path: Path, title: str, image_text: str, body: str = "") -> Path:
+    """A slide: real text title (and optional body) plus a picture of `image_text` on ~half the page."""
+    src = pymupdf.open()
+    src.new_page().insert_textbox(pymupdf.Rect(30, 30, 565, 400), image_text, fontsize=22)
+    png = src[0].get_pixmap(dpi=150, clip=pymupdf.Rect(0, 0, 595, 420)).tobytes("png")
+    out = pymupdf.open()
+    page = out.new_page()
+    page.insert_text((50, 60), title, fontsize=18)
+    if body:
+        page.insert_textbox(pymupdf.Rect(50, 80, 550, 380), body, fontsize=11)
+    page.insert_image(pymupdf.Rect(0, 400, 595, 820), stream=png)
+    out.save(path)
+    return path

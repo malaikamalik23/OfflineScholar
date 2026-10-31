@@ -13,31 +13,48 @@ data/          uploads, FAISS indexes, SQLite (git-ignored)      tests/  docs/  
 ## Quick start
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-# optional OCR for scanned PDFs: install Tesseract (apt install tesseract-ocr / brew install tesseract)
+# OCR for scanned PDFs and slide images: install Tesseract
+#   Linux: apt install tesseract-ocr   macOS: brew install tesseract
+#   Windows: winget install UB-Mannheim.TesseractOCR   (found automatically even though it is not on PATH)
 
-# one-time, needs internet: embedding model + LLM (install Ollama first: https://ollama.com)
-ollama serve &                      # skip if Ollama already runs as a service
-python scripts/download_models.py   # MiniLM embeddings (~90 MB) + qwen2.5:3b (~2 GB)
+# one-time, needs internet: install Ollama (https://ollama.com; Windows: winget install Ollama.Ollama),
+# make sure it is running (Windows/macOS: the Ollama app; Linux: `ollama serve`), then:
+python scripts/download_models.py   # MiniLM embeddings (~90 MB) into data/models + qwen2.5:3b (~1.9 GB)
 
 cp .env.example .env                # set OS_OFFLINE=1 to forbid network use from now on
 uvicorn backend.main:app --port 8000
 ```
 
-Open http://localhost:8000/docs. Check http://localhost:8000/api/health — `status` should be `ok`.
+Open http://127.0.0.1:8000/docs. Check http://127.0.0.1:8000/api/health — `status` should be `ok`.
 
 ## How it works
 
-PDF → PyMuPDF text per page (Tesseract OCR for image-only pages) → sentence-aware chunks that never cross pages
-→ MiniLM embeddings → FAISS (one index per subject; vector id = `chunks.id` in SQLite) → question embedding →
-top-k passages (below `OS_MIN_SCORE` they are discarded) → prompt to the Ollama model that must answer only from
-numbered passages and cite them, or say `NOT_FOUND`. If nothing relevant is retrieved the LLM isn't called.
+PDF → PyMuPDF text per page (Tesseract OCR for image-only pages, and for slides whose text layer is just a title
+while the content is a picture) → sentence-aware chunks that never cross pages → MiniLM embeddings → FAISS (one
+index per subject; vector id = `chunks.id` in SQLite) → question embedding → top-k passages (below `OS_MIN_SCORE`
+they are discarded) → prompt to the Ollama model that must answer only from numbered passages and cite them, or say
+`NOT_FOUND`. If nothing relevant is retrieved the LLM isn't called; if the answer's words are mostly not in the
+passages it cites (`OS_MIN_ANSWER_SUPPORT`), it is treated as not found instead of being shown as grounded.
+
+Measured on a real lecture with the default models on a laptop CPU: see [docs/EVALUATION.md](docs/EVALUATION.md).
 
 ## Configuration (`OS_*` env vars, see `.env.example`)
 
-`OS_OLLAMA_MODEL` (default `qwen2.5:3b`; try `llama3.2:3b` or `phi3:mini`), `OS_EMBEDDING_MODEL`, `OS_MIN_SCORE`,
-`OS_CHUNK_SIZE`, `OS_OCR_ENABLED`, `OS_MAX_UPLOAD_MB`, `OS_DATA_DIR`, `OS_OFFLINE`.
+`OS_OLLAMA_MODEL` (default `qwen2.5:3b`, see [docs/EVALUATION.md](docs/EVALUATION.md)), `OS_OLLAMA_URL` (default
+`http://127.0.0.1:11434`; avoid `localhost` on Windows, it adds ~2 s per request), `OS_LLM_MAX_TOKENS` (answer length
+cap, 400), `OS_EMBEDDING_MODEL`, `OS_MIN_SCORE` (0.25), `OS_MIN_ANSWER_SUPPORT` (0.55), `OS_CHUNK_SIZE`,
+`OS_OCR_ENABLED`, `OS_TESSERACT_CMD` (only if Tesseract is installed somewhere unusual), `OS_MAX_UPLOAD_MB`,
+`OS_DATA_DIR`, `OS_OFFLINE`.
+
+## Checking that it really runs offline
+
+After `scripts/download_models.py` has run once: set `OS_OFFLINE=1`, turn Wi-Fi off / unplug the network, start
+the server, then upload a PDF and ask a question. `/api/health` should say `"status": "ok"` and
+`"offline_mode": true`. If the embedding model was never downloaded, health shows `embeddings.available: false`
+and asking returns `embedding_model_unavailable` instead of trying to reach the internet. (Ollama itself may check
+for app updates in the background; that is the Ollama app, not Offline Scholar.)
 
 ## Tests
 
@@ -45,12 +62,15 @@ numbered passages and cite them, or say `NOT_FOUND`. If nothing relevant is retr
 pip install -r requirements-dev.txt && pytest
 ```
 
-The suite uses a deterministic hashing embedder and a fake LLM so it runs without downloads; it exercises real
-PDFs, OCR, chunking, FAISS, SQLite and every endpoint. Verifying answer *quality* needs the real models (see above).
+The suite uses a deterministic hashing embedder and a fake LLM so it runs without downloads (that is also what
+GitHub Actions runs); it exercises real PDFs, OCR, chunking, FAISS, SQLite and every endpoint. Answer *quality*
+needs the real models: start the server and run `python scripts/evaluate.py --pdf <lecture.pdf> --questions
+<questions.json>` (format in the script's docstring).
 
 ## Docs
 
-[API reference & examples](docs/API.md) · [Integration contract for exam_engine](docs/INTEGRATION.md)
+[API reference & examples](docs/API.md) · [Integration contract for exam_engine](docs/INTEGRATION.md) ·
+[Evaluation with real models](docs/EVALUATION.md)
 
 ## Limitations
 

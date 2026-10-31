@@ -22,11 +22,14 @@ def health(db: Session = Depends(get_db)):
         db_ok = False
     llm = svc.llm.status()
     llm_ok = bool(llm.get("reachable") and llm.get("model_installed"))
+    emb_ok = bool(getattr(svc.embedder, "available", True))
     return {
-        "status": "ok" if db_ok and llm_ok else "degraded",
+        "status": "ok" if db_ok and llm_ok and emb_ok else "degraded",
         "database": {"ok": db_ok},
         "llm": llm,
-        "embeddings": {"model": svc.embedder.name, "loaded": bool(getattr(svc.embedder, "loaded", False))},
-        "ocr": {"enabled": svc.settings.ocr_enabled, "tesseract_installed": tesseract_available()},
+        "embeddings": {"model": svc.embedder.name, "loaded": bool(getattr(svc.embedder, "loaded", False)),
+                       "available": emb_ok},
+        "ocr": {"enabled": svc.settings.ocr_enabled,
+                "tesseract_installed": tesseract_available(svc.settings.tesseract_cmd)},
         "offline_mode": svc.settings.offline,
     }

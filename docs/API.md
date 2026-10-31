@@ -13,10 +13,12 @@ Base URL `http://localhost:8000/api` · interactive docs at `/docs` · errors ar
 | `POST /chat/ask` | grounded Q&A (below) |
 | `POST /quiz/submit` | store a graded quiz, update per-topic performance |
 | `GET /analysis/{subject_id}` · `GET /revision/{subject_id}` | provided by `exam_engine` (501 until installed) |
-| `GET /health` | database, Ollama, model, embeddings, OCR status |
+| `GET /health` | database, Ollama, model, embeddings (`available` is false when offline and the model isn't saved locally), OCR status; `status` is `ok` only if database, LLM and embeddings are all usable, else `degraded` |
 
 Error codes: `unsupported_file_type`, `invalid_pdf`, `empty_file`, `file_too_large` (413), `duplicate_document` (409),
-`document_not_found`, `subject_not_found` (404), `document_processing` (409), `llm_unavailable` (503), `exam_engine_unavailable` (501).
+`document_not_found`, `subject_not_found` (404), `document_processing` (409), `llm_unavailable` (503),
+`embedding_model_unavailable` (503: `OS_OFFLINE=1` but the embedding model was never saved to `data/models`),
+`exam_engine_unavailable` (501).
 
 ## Examples
 

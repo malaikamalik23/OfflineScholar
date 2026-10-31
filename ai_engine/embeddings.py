@@ -5,6 +5,7 @@ import hashlib
 import os
 import re
 import threading
+from pathlib import Path
 from typing import Protocol
 
 import numpy as np
@@ -20,6 +21,10 @@ class Embedder(Protocol):
         """Return L2-normalised float32 array of shape (len(texts), dim)."""
 
 
+class EmbeddingModelUnavailableError(RuntimeError):
+    """The embedding model is not on disk and offline mode forbids downloading it."""
+
+
 class SentenceTransformerEmbedder:
     """Lazy-loads the model on first use (loading takes a few seconds)."""
 
@@ -30,16 +35,30 @@ class SentenceTransformerEmbedder:
         self._lock = threading.Lock()
         self._dim: int | None = None
 
+    @property
+    def available(self) -> bool:
+        """False when offline and the model isn't saved locally (scripts/download_models.py not run)."""
+        return self._model is not None or not self._offline or Path(self.name).is_dir()
+
     def _load(self):
         with self._lock:
             if self._model is None:
+                if not self.available:
+                    # Fail fast with a fix, instead of Hugging Face's "check your internet connection"
+                    # after a ~13 s retry loop.
+                    raise EmbeddingModelUnavailableError(
+                        f"Embedding model '{self.name}' is not saved in data/models and offline mode "
+                        "(OS_OFFLINE=1) forbids downloading it. Run `python scripts/download_models.py` "
+                        "once while online.")
                 if self._offline:
                     os.environ["HF_HUB_OFFLINE"] = "1"
                     os.environ["TRANSFORMERS_OFFLINE"] = "1"
                 from sentence_transformers import SentenceTransformer
 
                 self._model = SentenceTransformer(self.name, device="cpu")
-                self._dim = int(self._model.get_sentence_embedding_dimension())
+                get_dim = getattr(self._model, "get_embedding_dimension", None) or \
+                    self._model.get_sentence_embedding_dimension  # name before sentence-transformers 6
+                self._dim = int(get_dim())
         return self._model
 
     @property
@@ -72,6 +91,7 @@ class HashingEmbedder:
     """Bag-of-words hashing embedder. Deterministic, no downloads: NOT semantic. Tests/CI only."""
 
     loaded = True
+    available = True
 
     def __init__(self, dim: int = 384):
         self.name = f"hashing-{dim}"

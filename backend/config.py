@@ -18,11 +18,12 @@ class Settings(BaseSettings):
     database_url: str | None = None  # defaults to sqlite in data_dir
 
     # Local LLM (Ollama)
-    ollama_url: str = "http://localhost:11434"
+    ollama_url: str = "http://127.0.0.1:11434"  # not "localhost": see ai_engine/llm.py
     ollama_model: str = "qwen2.5:3b"
     ollama_timeout: float = 180.0
     llm_temperature: float = 0.1
     llm_num_ctx: int = 4096
+    llm_max_tokens: int = 400  # caps answer length: ~15 tokens/s on a laptop CPU, so <= ~25 s of generation
 
     # Embeddings. "hashing" is a dependency-free fallback intended for tests/CI only.
     embedding_backend: Literal["sentence-transformers", "hashing"] = "sentence-transformers"
@@ -34,11 +35,15 @@ class Settings(BaseSettings):
     chunk_overlap: int = 150
     default_top_k: int = 4
     min_score: float = 0.25  # cosine similarity below which a passage is considered irrelevant
+    # Share of an answer's content words that must appear in the question/passages, else it is treated
+    # as not found (hallucination guard; see ai_engine/rag.py answer_support and docs/EVALUATION.md).
+    min_answer_support: float = 0.55
 
     # OCR (needs the `tesseract` binary; silently skipped if missing)
     ocr_enabled: bool = True
     ocr_language: str = "eng"
     ocr_dpi: int = 200
+    tesseract_cmd: str | None = None  # path to tesseract(.exe); default: PATH, then standard Windows folders
 
     # API
     max_upload_mb: int = 50
