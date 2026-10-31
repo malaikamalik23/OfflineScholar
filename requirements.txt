@@ -9,3 +9,4 @@ sentence-transformers>=3.0
 faiss-cpu>=1.8
 numpy>=1.26
 httpx>=0.27
+scikit-learn>=1.3

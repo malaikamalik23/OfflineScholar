@@ -1,0 +1,84 @@
+{
+  "topic": "Neural networks",
+  "questions": [
+    {
+      "question_id": "neural-networks-e23f69db",
+      "topic": "Neural networks",
+      "question": "Fill in the blank using the course material: \"Each neuron computes a weighted sum of its inputs and passes it through an activation _____ such as ReLU or sigmoid.\"",
+      "options": [
+        {
+          "key": "A",
+          "text": "validation"
+        },
+        {
+          "key": "B",
+          "text": "function"
+        },
+        {
+          "key": "C",
+          "text": "information"
+        },
+        {
+          "key": "D",
+          "text": "variance"
+        }
+      ],
+      "correct_option": "B",
+      "correct_answer": "function",
+      "explanation": "The notes state: \"Each neuron computes a weighted sum of its inputs and passes it through an activation function such as ReLU or sigmoid.\"",
+      "difficulty": "intermediate",
+      "source": {
+        "document_id": "lec_01",
+        "document_name": "Lecture 3 - Neural Networks.pdf",
+        "page_number": 4,
+        "evidence": "Each neuron computes a weighted sum of its inputs and passes it through an activation function such as ReLU or sigmoid."
+      },
+      "generation_method": "extractive"
+    },
+    {
+      "question_id": "neural-networks-7d7db22c",
+      "topic": "Neural networks",
+      "question": "Fill in the blank using the course material: \"_____ flows forward through hidden layers to the output layer.\"",
+      "options": [
+        {
+          "key": "A",
+          "text": "Information"
+        },
+        {
+          "key": "B",
+          "text": "validation"
+        },
+        {
+          "key": "C",
+          "text": "function"
+        },
+        {
+          "key": "D",
+          "text": "neural network"
+        }
+      ],
+      "correct_option": "A",
+      "correct_answer": "Information",
+      "explanation": "The notes state: \"Information flows forward through hidden layers to the output layer.\"",
+      "difficulty": "intermediate",
+      "source": {
+        "document_id": "lec_01",
+        "document_name": "Lecture 3 - Neural Networks.pdf",
+        "page_number": 4,
+        "evidence": "Information flows forward through hidden layers to the output layer."
+      },
+      "generation_method": "extractive"
+    }
+  ],
+  "generation_report": {
+    "requested": 3,
+    "generated": 2,
+    "from_llm": 0,
+    "from_extractive": 2,
+    "llm_rejected": 0,
+    "llm_rejection_reasons": [],
+    "notes": [
+      "Only 2 well-supported question(s) could be generated from the supplied material; unsupported questions were deliberately not created."
+    ]
+  }
+}
