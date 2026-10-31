@@ -63,6 +63,7 @@ def test_analysis_endpoint_end_to_end(client, subject):
     assert cov["Neural networks"]["pages"]
     assert cov["Reinforcement learning"]["status"] == "Not covered"
     assert body["weak_topics"] is None and any("quiz" in n.lower() for n in body["notes"])
+    assert body["documents"]["lecture_pages"] == len(LECTURES)          # lectures are compared page by page
 
 
 def test_empty_subject_returns_guidance_not_errors(client):
