@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from .errors import AppError
 
 
-def _call(func_name: str, subject_id: int, db: Session) -> Any:
+def _call(func_name: str, subject_id: int, db: Session, **kwargs: Any) -> Any:
     try:
         module = importlib.import_module("exam_engine.api")
     except ModuleNotFoundError as exc:
@@ -26,7 +26,7 @@ def _call(func_name: str, subject_id: int, db: Session) -> Any:
     func = getattr(module, func_name, None)
     if func is None:
         raise AppError(501, "exam_engine_unavailable", f"exam_engine.api.{func_name} is not implemented yet.")
-    return func(subject_id, db)
+    return func(subject_id, db=db, **kwargs)
 
 
 def get_analysis(subject_id: int, db: Session) -> Any:
@@ -35,3 +35,7 @@ def get_analysis(subject_id: int, db: Session) -> Any:
 
 def get_revision(subject_id: int, db: Session) -> Any:
     return _call("recommend_revision", subject_id, db)
+
+
+def generate_quiz(subject_id: int, topic: str, n_questions: int, db: Session) -> Any:
+    return _call("generate_quiz_for_subject", subject_id, db, topic=topic, n_questions=n_questions)

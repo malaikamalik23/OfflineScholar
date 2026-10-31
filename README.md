@@ -29,6 +29,22 @@ uvicorn backend.main:app --port 8000
 
 Open http://127.0.0.1:8000/docs. Check http://127.0.0.1:8000/api/health — `status` should be `ok`.
 
+## Desktop app
+
+The UI in `frontend/` (React + Vite, from the Figma Make design) talks to the API above. To run it as a desktop app:
+
+```bash
+pip install -r requirements-desktop.txt        # adds pywebview (native window via Edge WebView2)
+cd frontend && npm install && npm run build && cd ..
+python scripts/download_models.py              # once, with internet (skip if already done)
+```
+
+Then double-click **`Offline Scholar.bat`** (Windows) or run `python scripts/desktop.py`. It starts the backend on
+127.0.0.1 with `OS_OFFLINE=1` and opens the app in its own window (`--browser` opens your browser instead). Ollama
+must be running. FastAPI also serves the built UI at http://localhost:8000 when you run uvicorn directly.
+
+For UI development: run the backend on :8000, then `npm run dev` in `frontend/` (http://localhost:5173 proxies `/api`).
+
 ## How it works
 
 PDF → PyMuPDF text per page (Tesseract OCR for image-only pages, and for slides whose text layer is just a title

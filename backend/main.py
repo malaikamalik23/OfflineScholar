@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from ai_engine.ingest import ensure_index_consistent
 from ai_engine.runtime import Services, build_services, get_services, set_services
@@ -16,6 +18,8 @@ from backend.routes import analysis, chat, documents, health, quiz, subjects
 from backend.storage import remove_orphan_uploads
 
 log = logging.getLogger("offline_scholar")
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 
 
 def create_app(settings: Settings | None = None, services: Services | None = None) -> FastAPI:
@@ -52,6 +56,11 @@ def create_app(settings: Settings | None = None, services: Services | None = Non
     for module in (documents, subjects, chat, quiz, analysis, health):
         api.include_router(module.router)
     app.include_router(api)
+
+    # The desktop app: serve the built React UI (frontend/dist, made by `npm run build`) at "/".
+    # Mounted last so /api and /docs keep priority. The UI uses #hash routes, so one index.html is enough.
+    if FRONTEND_DIST.is_dir():
+        app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
     return app
 
 

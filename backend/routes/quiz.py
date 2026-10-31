@@ -3,12 +3,25 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from backend import integration
 from backend.database import get_db
 from backend.errors import AppError
 from backend.models import QuizAnswer, QuizAttempt, Subject, TopicPerformance
-from backend.schemas import QuizResult, QuizSubmit, TopicStat
+from backend.schemas import QuizGenerate, QuizResult, QuizSubmit, TopicStat
 
 router = APIRouter(prefix="/quiz", tags=["quiz"])
+
+
+@router.post("/generate")
+def generate_quiz(body: QuizGenerate, db: Session = Depends(get_db)):
+    """Multiple-choice questions on `topic`, built by exam_engine from this subject's lecture notes.
+
+    Each question carries its source document and page. Grade on the client, then send the results to
+    POST /quiz/submit with `topic` and `question_ref` = the question's id.
+    """
+    if db.get(Subject, body.subject_id) is None:
+        raise AppError(404, "subject_not_found", f"Subject {body.subject_id} not found")
+    return integration.generate_quiz(body.subject_id, body.topic, body.n_questions, db)
 
 
 @router.post("/submit", response_model=QuizResult, status_code=201)
