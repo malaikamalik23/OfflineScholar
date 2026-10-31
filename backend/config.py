@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     database_url: str | None = None  # defaults to sqlite in data_dir
 
     # Local LLM (Ollama)
-    ollama_url: str = "http://localhost:11434"
+    ollama_url: str = "http://127.0.0.1:11434"  # not "localhost": see ai_engine/llm.py
     ollama_model: str = "qwen2.5:3b"
     ollama_timeout: float = 180.0
     llm_temperature: float = 0.1

@@ -17,14 +17,24 @@ class LLMClient(Protocol):
     def status(self) -> dict: ...
 
 
+def _prefer_ipv4_loopback(url: str) -> str:
+    """Ollama listens on 127.0.0.1 only. On Windows "localhost" resolves to ::1 first, and a refused
+    connection there is retried for ~2 s before falling back, which added ~2 s to every request."""
+    u = httpx.URL(url)
+    return str(u.copy_with(host="127.0.0.1")).rstrip("/") if u.host == "localhost" else url.rstrip("/")
+
+
 class OllamaClient:
     def __init__(self, url: str, model: str, timeout: float = 180.0,
-                 temperature: float = 0.1, num_ctx: int = 4096):
-        self.url = url.rstrip("/")
+                 temperature: float = 0.1, num_ctx: int = 4096, transport: httpx.BaseTransport | None = None):
+        self.url = _prefer_ipv4_loopback(url)
         self.model = model
         self.timeout = timeout
         self.temperature = temperature
         self.num_ctx = num_ctx
+        # One reusable client: creating one costs ~0.7 s (SSL setup). trust_env=False keeps local LLM
+        # traffic away from any system HTTP proxy.
+        self._http = httpx.Client(trust_env=False, transport=transport)
 
     def chat(self, system: str, user: str) -> str:
         payload = {
@@ -34,7 +44,7 @@ class OllamaClient:
             "options": {"temperature": self.temperature, "num_ctx": self.num_ctx},
         }
         try:
-            r = httpx.post(f"{self.url}/api/chat", json=payload, timeout=self.timeout)
+            r = self._http.post(f"{self.url}/api/chat", json=payload, timeout=self.timeout)
         except httpx.ConnectError as exc:
             raise LLMUnavailableError(
                 f"Cannot reach Ollama at {self.url}. Start it with `ollama serve`."
@@ -52,7 +62,7 @@ class OllamaClient:
 
     def status(self) -> dict:
         try:
-            r = httpx.get(f"{self.url}/api/tags", timeout=3.0)
+            r = self._http.get(f"{self.url}/api/tags", timeout=3.0)
             r.raise_for_status()
             names = [m.get("name", "") for m in r.json().get("models", [])]
         except Exception as exc:  # noqa: BLE001 - any failure means "not reachable"
