@@ -71,6 +71,15 @@ HISTORY = [
 ]
 
 
+@pytest.fixture(autouse=True)
+def _hermetic_env(monkeypatch):
+    """Tests must not depend on the developer's OS_* variables (e.g. OS_OFFLINE=1 or OS_MIN_SCORE)."""
+    import os
+
+    for name in [n for n in os.environ if n.upper().startswith("OS_")]:
+        monkeypatch.delenv(name)
+
+
 @pytest.fixture
 def llm() -> FakeLLM:
     return FakeLLM()
