@@ -200,3 +200,23 @@ def test_index_rebuilt_if_missing(settings, llm, pdfs):
         body = c.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
                                               "subject_id": doc["subject_id"]}).json()
         assert body["grounded"] is True
+
+
+def test_answer_padded_with_outside_knowledge_is_rejected(client, pdfs, llm):
+    """Regression (real qwen2.5:3b run): for a question the notes don't cover, the model answered from
+    general knowledge and cited a loosely related passage. Such answers must come back ungrounded."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("Random forests reduce overfitting by averaging many decorrelated trees trained on "
+                 "bootstrap samples, which lowers variance [1].")
+    body = client.post("/api/chat/ask", json={"question": "How does photosynthesis relate to random forests?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is False and body["sources"] == []
+    assert "couldn't find" in body["answer"].lower()
+
+
+def test_paraphrased_answer_from_passages_is_kept(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "It happens in the chloroplasts, where chlorophyll absorbs sunlight [1]."
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is True and body["sources"][0]["page_number"] == 1

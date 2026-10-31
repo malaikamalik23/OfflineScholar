@@ -26,12 +26,14 @@ def _prefer_ipv4_loopback(url: str) -> str:
 
 class OllamaClient:
     def __init__(self, url: str, model: str, timeout: float = 180.0,
-                 temperature: float = 0.1, num_ctx: int = 4096, transport: httpx.BaseTransport | None = None):
+                 temperature: float = 0.1, num_ctx: int = 4096, max_tokens: int = 400,
+                 transport: httpx.BaseTransport | None = None):
         self.url = _prefer_ipv4_loopback(url)
         self.model = model
         self.timeout = timeout
         self.temperature = temperature
         self.num_ctx = num_ctx
+        self.max_tokens = max_tokens
         # One reusable client: creating one costs ~0.7 s (SSL setup). trust_env=False keeps local LLM
         # traffic away from any system HTTP proxy.
         self._http = httpx.Client(trust_env=False, transport=transport)
@@ -41,7 +43,7 @@ class OllamaClient:
             "model": self.model,
             "stream": False,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],
-            "options": {"temperature": self.temperature, "num_ctx": self.num_ctx},
+            "options": {"temperature": self.temperature, "num_ctx": self.num_ctx, "num_predict": self.max_tokens},
         }
         try:
             r = self._http.post(f"{self.url}/api/chat", json=payload, timeout=self.timeout)

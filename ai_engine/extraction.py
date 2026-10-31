@@ -150,7 +150,9 @@ def extract_document(
                     try:
                         ocr_text = clean_text(_ocr_page(page, ocr_language, ocr_dpi, binary))
                         if len(ocr_text) > len(text):
-                            text, used_ocr = ocr_text, True
+                            # Keep the exact text layer first: OCR of tables/formulas is noisy, and a
+                            # small model will otherwise quote garbled numbers from it.
+                            text, used_ocr = f"{text}\n\n{ocr_text}", True
                     except Exception as exc:  # keep the text layer we already have
                         warnings.append(f"Page {number}: OCR of embedded images failed: {exc}")
                 if len(text) >= MIN_PAGE_CHARS or (text and not used_ocr and not page.get_images()):

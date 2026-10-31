@@ -1,11 +1,14 @@
 """Retrieval-augmented question answering with a local LLM."""
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import dataclass, field
 
 from .retrieval import RetrievedChunk, retrieve_context
 from .runtime import Services, get_services
+
+log = logging.getLogger(__name__)
 
 NOT_FOUND_TOKEN = "NOT_FOUND"
 NOT_FOUND_MESSAGE = (
@@ -13,17 +16,59 @@ NOT_FOUND_MESSAGE = (
     "or upload notes that cover this topic."
 )
 
+# Tuned on real lecture slides with qwen2.5:3b (see docs/EVALUATION.md). The earlier, stricter prompt
+# refused answers that were present but worded differently, and quoted numbers from the wrong passage.
 SYSTEM_PROMPT = f"""You are Offline Scholar, a study assistant for students.
-Answer the student's question using ONLY the numbered context passages provided.
+Answer the student's question using ONLY the numbered context passages, which come from the student's own
+lecture notes (some text was read from images and may contain recognition errors).
 
 Rules:
-- Do not use outside knowledge and do not guess.
-- After each claim, cite the passage(s) that support it like [1] or [2].
-- If the passages do not contain the answer, reply with exactly: {NOT_FOUND_TOKEN}
-- Write clearly and concisely for a student revising for an exam."""
+- Use only facts written in the passages. Do not add outside knowledge, examples or details that the
+  passages do not contain, even if you know them.
+- The passages may use different words than the question (for example "feature scaling" for
+  "normalization"). If a passage answers the question, answer it.
+- If the passages mention the topic but do not contain what is asked, reply {NOT_FOUND_TOKEN}.
+- Copy numbers, names and formulas exactly as they appear. Never calculate or guess a value.
+- After each fact, cite the passage it comes from, like [1] or [2].
+- Be brief: at most 4 sentences or a short bullet list.
+- If no passage answers the question, reply with exactly {NOT_FOUND_TOKEN}."""
 
 _CITATION = re.compile(r"\[(\d+)\]")
 _EXCERPT_CHARS = 400
+_WORD = re.compile(r"[^\W\d_][\w-]+|\d+(?:\.\d+)?")
+_LATEX = re.compile(r"\\[a-z]+")
+_SUPPORT_STOP = frozenset("""
+a an the of to in on at for and or is are was were be been being it its this that these those with as by
+from what which who whom how why when where do does did can could should would will may might must not no
+yes into than then there their they them you your such also has have had more most less many much each
+other some any all only both used use uses using called because so if but while about between over under
+per one two three way ways example examples passage passages answer question""".split())
+
+
+def _content_words(text: str) -> set[str]:
+    text = _LATEX.sub(" ", text.lower())  # models rewrite garbled OCR formulas as LaTeX: \sum, P(e_i)
+    words = set()
+    for w in _WORD.findall(text):
+        if "_" in w:
+            continue
+        if w in _SUPPORT_STOP or (len(w) < 3 and not w[0].isdigit()):
+            continue
+        words.add(w[:-1] if len(w) > 4 and w.endswith("s") else w)  # crude plural folding
+    return words
+
+
+def answer_support(answer: str, question: str, passages: list[RetrievedChunk]) -> float:
+    """Fraction of the answer's content words that occur in the question or the given passages.
+
+    A cheap, deterministic hallucination guard. Measured on real lecture slides with qwen2.5:3b against
+    the cited passages: faithful answers scored >= 0.64, answers padded with outside knowledge 0.35-0.50.
+    See docs/EVALUATION.md.
+    """
+    words = _content_words(_CITATION.sub(" ", answer))
+    if not words:
+        return 1.0
+    context = _content_words(question + " " + " ".join(p.text for p in passages))
+    return len(words & context) / len(words)
 
 
 @dataclass
@@ -89,4 +134,9 @@ def answer_question(
     text = raw.replace(NOT_FOUND_TOKEN, "").strip()
     cited = sorted({int(n) for n in _CITATION.findall(text) if 1 <= int(n) <= len(passages)})
     used = [passages[n - 1] for n in cited] or passages  # no valid citations -> show everything retrieved
+    support = answer_support(text, question, used)
+    if support < svc.settings.min_answer_support:
+        # The model wrote things its cited passages don't contain: don't present it as grounded.
+        log.info("Answer rejected as unsupported by its passages (support %.2f): %r", support, text[:200])
+        return Answer(NOT_FOUND_MESSAGE, grounded=False, sources=[], confidence=passages[0].score)
     return Answer(text, grounded=True, sources=[_source(p) for p in used], confidence=passages[0].score)
