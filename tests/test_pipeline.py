@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import shutil
-
 import pytest
 
 from ai_engine.chunking import chunk_pages
-from ai_engine.extraction import ExtractionError, PageText, extract_document
+from ai_engine.extraction import ExtractionError, PageText, extract_document, tesseract_available
 
 from .conftest import BIOLOGY, make_pdf, make_scanned_pdf
 
@@ -33,7 +31,7 @@ def test_blank_pdf_has_no_text(tmp_path):
     assert e.value.code == "no_extractable_text"
 
 
-@pytest.mark.skipif(shutil.which("tesseract") is None, reason="tesseract not installed")
+@pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 def test_scanned_pdf_uses_ocr(tmp_path):
     p = make_scanned_pdf(tmp_path / "scan.pdf", "Newton second law states force equals mass times acceleration")
     doc = extract_document(p, ocr_enabled=True)

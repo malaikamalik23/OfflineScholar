@@ -8,6 +8,7 @@ from backend.database import get_db
 from backend.errors import AppError
 from backend.models import Chunk, Document, Subject
 from backend.schemas import SubjectCreate, SubjectOut
+from backend.storage import remove_file
 
 router = APIRouter(prefix="/subjects", tags=["subjects"])
 
@@ -36,6 +37,5 @@ def delete_subject(subject_id: int, db: Session = Depends(get_db)):
     get_services().vector_store.drop(subject_id)
     db.delete(subject)
     db.commit()
-    from pathlib import Path
     for p in paths:
-        Path(p).unlink(missing_ok=True)
+        remove_file(p)

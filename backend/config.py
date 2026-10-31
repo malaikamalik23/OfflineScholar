@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     ocr_enabled: bool = True
     ocr_language: str = "eng"
     ocr_dpi: int = 200
+    tesseract_cmd: str | None = None  # path to tesseract(.exe); default: PATH, then standard Windows folders
 
     # API
     max_upload_mb: int = 50

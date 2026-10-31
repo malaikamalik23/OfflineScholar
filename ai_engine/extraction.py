@@ -1,9 +1,11 @@
 """PDF text extraction with PyMuPDF, plus optional Tesseract OCR for scanned pages."""
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import subprocess
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -40,8 +42,26 @@ class ExtractedDocument:
         return sum(1 for p in self.pages if p.ocr)
 
 
-def tesseract_available() -> bool:
-    return shutil.which("tesseract") is not None
+def _windows_tesseract_candidates() -> list[Path]:
+    # The official Windows installer (UB Mannheim) does not add Tesseract to PATH.
+    roots = [os.environ.get(v) for v in ("ProgramFiles", "ProgramFiles(x86)", "LOCALAPPDATA")]
+    return [Path(r) / sub / "tesseract.exe" for r in roots if r
+            for sub in ("Tesseract-OCR", "Programs/Tesseract-OCR")]
+
+
+def find_tesseract(cmd: str | None = None) -> str | None:
+    """Path of the tesseract binary: explicit `cmd` (OS_TESSERACT_CMD), else PATH, else the
+    default Windows install folders. None if it cannot be found."""
+    if cmd:
+        return shutil.which(cmd) or (cmd if Path(cmd).is_file() else None)
+    found = shutil.which("tesseract")
+    if found or sys.platform != "win32":
+        return found
+    return next((str(p) for p in _windows_tesseract_candidates() if p.is_file()), None)
+
+
+def tesseract_available(cmd: str | None = None) -> bool:
+    return find_tesseract(cmd) is not None
 
 
 def clean_text(text: str) -> str:
@@ -53,11 +73,12 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
-def _ocr_page(page: fitz.Page, language: str, dpi: int) -> str:
+def _ocr_page(page: fitz.Page, language: str, dpi: int, binary: str) -> str:
     png = page.get_pixmap(dpi=dpi).tobytes("png")
     proc = subprocess.run(
-        ["tesseract", "stdin", "stdout", "-l", language],
+        [binary, "stdin", "stdout", "-l", language],
         input=png, capture_output=True, timeout=180, check=False,
+        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),  # no console flash on Windows
     )
     if proc.returncode != 0:
         raise RuntimeError(proc.stderr.decode(errors="ignore").strip()[:200] or "tesseract failed")
@@ -70,6 +91,7 @@ def extract_document(
     ocr_enabled: bool = True,
     ocr_language: str = "eng",
     ocr_dpi: int = 200,
+    tesseract_cmd: str | None = None,
 ) -> ExtractedDocument:
     """Extract per-page text from a PDF. Page numbers are 1-based.
 
@@ -90,7 +112,8 @@ def extract_document(
         if doc.page_count == 0:
             raise ExtractionError("empty_pdf", "The PDF has no pages.")
 
-        can_ocr = ocr_enabled and tesseract_available()
+        binary = find_tesseract(tesseract_cmd) if ocr_enabled else None
+        can_ocr = binary is not None
         pages: list[PageText] = []
         warnings: list[str] = []
         image_only_without_ocr = 0
@@ -102,7 +125,7 @@ def extract_document(
                 used_ocr = False
                 if len(text) < MIN_PAGE_CHARS:
                     if can_ocr:
-                        text = clean_text(_ocr_page(page, ocr_language, ocr_dpi))
+                        text = clean_text(_ocr_page(page, ocr_language, ocr_dpi, binary))
                         used_ocr = True
                     elif page.get_images():
                         image_only_without_ocr += 1
