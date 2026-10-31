@@ -39,7 +39,9 @@ class SentenceTransformerEmbedder:
                 from sentence_transformers import SentenceTransformer
 
                 self._model = SentenceTransformer(self.name, device="cpu")
-                self._dim = int(self._model.get_sentence_embedding_dimension())
+                get_dim = getattr(self._model, "get_embedding_dimension", None) or \
+                    self._model.get_sentence_embedding_dimension  # name before sentence-transformers 6
+                self._dim = int(get_dim())
         return self._model
 
     @property

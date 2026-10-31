@@ -29,7 +29,8 @@ def ingest_document(document_id: int, services: Services | None = None) -> None:
             subject_id, path = doc.subject_id, doc.stored_path
 
         extracted = extract_document(
-            path, ocr_enabled=cfg.ocr_enabled, ocr_language=cfg.ocr_language, ocr_dpi=cfg.ocr_dpi
+            path, ocr_enabled=cfg.ocr_enabled, ocr_language=cfg.ocr_language, ocr_dpi=cfg.ocr_dpi,
+            tesseract_cmd=cfg.tesseract_cmd,
         )
         pieces = chunk_pages(extracted.pages, cfg.chunk_size, cfg.chunk_overlap)
         if not pieces:

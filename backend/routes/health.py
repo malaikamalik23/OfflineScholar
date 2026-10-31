@@ -27,6 +27,7 @@ def health(db: Session = Depends(get_db)):
         "database": {"ok": db_ok},
         "llm": llm,
         "embeddings": {"model": svc.embedder.name, "loaded": bool(getattr(svc.embedder, "loaded", False))},
-        "ocr": {"enabled": svc.settings.ocr_enabled, "tesseract_installed": tesseract_available()},
+        "ocr": {"enabled": svc.settings.ocr_enabled,
+                "tesseract_installed": tesseract_available(svc.settings.tesseract_cmd)},
         "offline_mode": svc.settings.offline,
     }

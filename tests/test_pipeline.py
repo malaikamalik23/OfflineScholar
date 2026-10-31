@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-import shutil
-
 import pytest
 
 from ai_engine.chunking import chunk_pages
-from ai_engine.extraction import ExtractionError, PageText, extract_document
+from ai_engine.extraction import ExtractionError, PageText, extract_document, tesseract_available
 
-from .conftest import BIOLOGY, make_pdf, make_scanned_pdf
+from .conftest import BIOLOGY, make_pdf, make_scanned_pdf, make_slide_pdf
 
 
 def test_extraction_keeps_page_numbers(pdfs):
@@ -33,7 +31,7 @@ def test_blank_pdf_has_no_text(tmp_path):
     assert e.value.code == "no_extractable_text"
 
 
-@pytest.mark.skipif(shutil.which("tesseract") is None, reason="tesseract not installed")
+@pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 def test_scanned_pdf_uses_ocr(tmp_path):
     p = make_scanned_pdf(tmp_path / "scan.pdf", "Newton second law states force equals mass times acceleration")
     doc = extract_document(p, ocr_enabled=True)
@@ -65,3 +63,21 @@ def test_chunks_respect_size_pages_and_overlap():
 def test_short_page_is_one_chunk():
     chunks = chunk_pages([PageText(7, BIOLOGY[1])])
     assert len(chunks) == 1 and chunks[0].page_number == 7
+
+
+@pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
+def test_slide_with_title_and_picture_is_ocrd(tmp_path):
+    """Regression: slides whose content is only in an image (title in the text layer) were indexed
+    as just the title, because OCR only ran on pages with < 20 characters of text."""
+    p = make_slide_pdf(tmp_path / "slide.pdf", "Calculate Entropy of Training Set",
+                       "The entropy of the training set is 0.940 with nine positive examples")
+    doc = extract_document(p, ocr_enabled=True)
+    assert doc.ocr_pages == 1
+    assert "0.940" in doc.pages[0].text and "positive" in doc.pages[0].text
+
+
+def test_text_rich_page_with_picture_is_not_ocrd(tmp_path):
+    body = " ".join(BIOLOGY) * 2  # > SPARSE_PAGE_CHARS of real text
+    p = make_slide_pdf(tmp_path / "rich.pdf", "Photosynthesis", "diagram label", body=body)
+    doc = extract_document(p, ocr_enabled=True)
+    assert doc.ocr_pages == 0 and "chloroplasts" in doc.pages[0].text
