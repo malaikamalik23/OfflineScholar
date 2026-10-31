@@ -1,0 +1,496 @@
+{
+  "priority_topics": [
+    {
+      "topic": "Neural networks",
+      "aliases": [],
+      "priority_score": 74.4,
+      "signals": {
+        "exam_importance": 1.0,
+        "weakness": 0.88,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "High",
+          "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions.",
+          "papers": 4
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 3 - Neural Networks.pdf",
+          "pages": [
+            4,
+            5
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 3 - Neural Networks.pdf, pages 4, 5 (key terms found: neural, network)."
+        },
+        "weakness": {
+          "status": "weak",
+          "accuracy": 0.0,
+          "attempted": 6,
+          "recommendation": "0/6 correct on Neural networks (0%): revise this topic; 2 question(s) were missed more than once — go through their explanations; start with Lecture 3 - Neural Networks.pdf, page 4.",
+          "review_pointers": [
+            {
+              "document": "Lecture 3 - Neural Networks.pdf",
+              "page": 4
+            }
+          ]
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 1,
+      "priority_label": "High",
+      "suggested_minutes": 90,
+      "reasons": [
+        "Frequently examined: Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions",
+        "Quiz performance: 0% over 6 answer(s)"
+      ],
+      "actions": [
+        "0/6 correct on Neural networks (0%): revise this topic; 2 question(s) were missed more than once — go through their explanations; start with Lecture 3 - Neural Networks.pdf, page 4.",
+        "Then solve the past-paper questions on this topic under exam conditions"
+      ]
+    },
+    {
+      "topic": "Overfitting and regularization",
+      "aliases": [],
+      "priority_score": 44.0,
+      "signals": {
+        "exam_importance": 0.78,
+        "weakness": 0.4,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "High",
+          "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 5 questions worth 15 marks (7.7% of all marks); usually asked as 'define' questions.",
+          "papers": 4
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 2 - Model Generalisation.pdf",
+          "pages": [
+            3
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 2 - Model Generalisation.pdf, page 3 (key terms found: overfit, regularization)."
+        },
+        "weakness": {
+          "status": "developing",
+          "accuracy": 0.667,
+          "attempted": 3,
+          "recommendation": "2/3 correct on Overfitting and regularization (67%): revise this topic; start with Lecture 2 - Model Generalisation.pdf, page 3.",
+          "review_pointers": [
+            {
+              "document": "Lecture 2 - Model Generalisation.pdf",
+              "page": 3
+            }
+          ]
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 2,
+      "priority_label": "Medium",
+      "suggested_minutes": 55,
+      "reasons": [
+        "Frequently examined: Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 5 questions worth 15 marks (7.7% of all marks); usually asked as 'define' questions",
+        "Quiz performance: 67% over 3 answer(s)"
+      ],
+      "actions": [
+        "2/3 correct on Overfitting and regularization (67%): revise this topic; start with Lecture 2 - Model Generalisation.pdf, page 3.",
+        "Then solve the past-paper questions on this topic under exam conditions"
+      ]
+    },
+    {
+      "topic": "Decision trees",
+      "aliases": [],
+      "priority_score": 42.4,
+      "signals": {
+        "exam_importance": 0.53,
+        "weakness": 0.62,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "Medium",
+          "why": "Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+          "papers": 2
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 5 - Trees and Ensembles.pdf",
+          "pages": [
+            2
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 5 - Trees and Ensembles.pdf, page 2 (key terms found: decision, tree)."
+        },
+        "weakness": {
+          "status": "weak",
+          "accuracy": 0.333,
+          "attempted": 6,
+          "recommendation": "2/6 correct on Decision trees (33%): revise this topic; 1 question(s) were missed more than once — go through their explanations; start with Lecture 5 - Trees and Ensembles.pdf, page 2.",
+          "review_pointers": [
+            {
+              "document": "Lecture 5 - Trees and Ensembles.pdf",
+              "page": 2
+            }
+          ]
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 3,
+      "priority_label": "Medium",
+      "suggested_minutes": 50,
+      "reasons": [
+        "Frequently examined: Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions",
+        "Quiz performance: 33% over 6 answer(s)"
+      ],
+      "actions": [
+        "2/6 correct on Decision trees (33%): revise this topic; 1 question(s) were missed more than once — go through their explanations; start with Lecture 5 - Trees and Ensembles.pdf, page 2."
+      ]
+    },
+    {
+      "topic": "K-means clustering",
+      "aliases": [],
+      "priority_score": 40.0,
+      "signals": {
+        "exam_importance": 0.8,
+        "weakness": null,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "High",
+          "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions.",
+          "papers": 3
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 6 - Clustering.pdf",
+          "pages": [
+            1
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 6 - Clustering.pdf, page 1 (key terms found: k-mean, cluster)."
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 4,
+      "priority_label": "Medium",
+      "suggested_minutes": 50,
+      "reasons": [
+        "Frequently examined: Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions"
+      ],
+      "actions": [
+        "Practise past-paper questions on this topic"
+      ]
+    },
+    {
+      "topic": "Gradient descent",
+      "aliases": [],
+      "priority_score": 37.0,
+      "signals": {
+        "exam_importance": 0.74,
+        "weakness": null,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "High",
+          "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions.",
+          "papers": 3
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 3 - Neural Networks.pdf",
+          "pages": [
+            5
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 3 - Neural Networks.pdf, page 5 (key terms found: gradient, descent)."
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 5,
+      "priority_label": "Medium",
+      "suggested_minutes": 45,
+      "reasons": [
+        "Frequently examined: Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions"
+      ],
+      "actions": [
+        "Practise past-paper questions on this topic"
+      ]
+    },
+    {
+      "topic": "Support vector machines",
+      "aliases": [],
+      "priority_score": 30.0,
+      "signals": {
+        "exam_importance": 0.6,
+        "weakness": null,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "Medium",
+          "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'define' questions.",
+          "papers": 2
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 7 - Kernel Methods.pdf",
+          "pages": [
+            2
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 7 - Kernel Methods.pdf, page 2 (key terms found: support, vector, machin)."
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 6,
+      "priority_label": "Medium",
+      "suggested_minutes": 35,
+      "reasons": [
+        "Frequently examined: Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'define' questions"
+      ],
+      "actions": [
+        "Practise past-paper questions on this topic"
+      ]
+    },
+    {
+      "topic": "Evaluation metrics",
+      "aliases": [],
+      "priority_score": 28.6,
+      "signals": {
+        "exam_importance": 0.0,
+        "weakness": null,
+        "coverage_gap": 1.0
+      },
+      "details": {
+        "importance": {
+          "label": "Low",
+          "why": "Appeared in 0 of 4 papers; 0 questions.",
+          "papers": 0
+        },
+        "gap": {
+          "status": "Not covered",
+          "document": null,
+          "pages": [],
+          "explanation": "No lecture content in the uploaded notes addresses this topic. The closest material is page 4 of Lecture 3 - Neural Networks.pdf, but it is not similar enough to count."
+        }
+      },
+      "not_seen_in_past_papers": true,
+      "minutes_done": 0.0,
+      "rank": 7,
+      "priority_label": "Low",
+      "suggested_minutes": 35,
+      "reasons": [
+        "Not matched to any topic in the analysed past papers (low exam priority unless your syllabus says otherwise)",
+        "Syllabus gap: not covered in your notes"
+      ],
+      "actions": [
+        "Find or write notes for this topic (textbook / slides) — your lecture notes do not cover it"
+      ]
+    },
+    {
+      "topic": "Reinforcement learning",
+      "aliases": [],
+      "priority_score": 28.6,
+      "signals": {
+        "exam_importance": 0.0,
+        "weakness": null,
+        "coverage_gap": 1.0
+      },
+      "details": {
+        "importance": {
+          "label": "Low",
+          "why": "Appeared in 0 of 4 papers; 0 questions.",
+          "papers": 0
+        },
+        "gap": {
+          "status": "Not covered",
+          "document": null,
+          "pages": [],
+          "explanation": "No lecture content in the uploaded notes addresses this topic. The closest material is page 5 of Lecture 3 - Neural Networks.pdf, but it is not similar enough to count."
+        }
+      },
+      "not_seen_in_past_papers": true,
+      "minutes_done": 0.0,
+      "rank": 8,
+      "priority_label": "Low",
+      "suggested_minutes": 35,
+      "reasons": [
+        "Not matched to any topic in the analysed past papers (low exam priority unless your syllabus says otherwise)",
+        "Syllabus gap: not covered in your notes"
+      ],
+      "actions": [
+        "Find or write notes for this topic (textbook / slides) — your lecture notes do not cover it"
+      ]
+    },
+    {
+      "topic": "Bias-variance tradeoff",
+      "aliases": [],
+      "priority_score": 26.6,
+      "signals": {
+        "exam_importance": 0.53,
+        "weakness": null,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "Medium",
+          "why": "Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+          "papers": 2
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 2 - Model Generalisation.pdf",
+          "pages": [
+            6
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 2 - Model Generalisation.pdf, page 6 (key terms found: bia, varianc, tradeoff)."
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 9,
+      "priority_label": "Low",
+      "suggested_minutes": 35,
+      "reasons": [
+        "Frequently examined: Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions"
+      ],
+      "actions": [
+        "Practise past-paper questions on this topic"
+      ]
+    },
+    {
+      "topic": "Principal component analysis",
+      "aliases": [],
+      "priority_score": 16.6,
+      "signals": {
+        "exam_importance": 0.33,
+        "weakness": null,
+        "coverage_gap": 0.0
+      },
+      "details": {
+        "importance": {
+          "label": "Low",
+          "why": "Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions.",
+          "papers": 1
+        },
+        "gap": {
+          "status": "Covered",
+          "document": "Lecture 9 - Dimensionality.pdf",
+          "pages": [
+            1
+          ],
+          "explanation": "Your notes cover this: strong match in Lecture 9 - Dimensionality.pdf, page 1 (key terms found: principal, component, analysis)."
+        }
+      },
+      "not_seen_in_past_papers": false,
+      "minutes_done": 0.0,
+      "rank": 10,
+      "priority_label": "Low",
+      "suggested_minutes": 20,
+      "reasons": [
+        "Frequently examined: Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions"
+      ],
+      "actions": [
+        "Practise past-paper questions on this topic"
+      ]
+    }
+  ],
+  "schedule": [
+    {
+      "day": 1,
+      "sessions": [
+        {
+          "topic": "Neural networks",
+          "minutes": 90
+        }
+      ],
+      "minutes": 90
+    },
+    {
+      "day": 2,
+      "sessions": [
+        {
+          "topic": "Overfitting and regularization",
+          "minutes": 55
+        },
+        {
+          "topic": "Decision trees",
+          "minutes": 35
+        }
+      ],
+      "minutes": 90
+    },
+    {
+      "day": 3,
+      "sessions": [
+        {
+          "topic": "Decision trees",
+          "minutes": 15
+        },
+        {
+          "topic": "K-means clustering",
+          "minutes": 50
+        },
+        {
+          "topic": "Gradient descent",
+          "minutes": 25
+        }
+      ],
+      "minutes": 90
+    },
+    {
+      "day": 4,
+      "sessions": [
+        {
+          "topic": "Gradient descent",
+          "minutes": 20
+        },
+        {
+          "topic": "Support vector machines",
+          "minutes": 35
+        },
+        {
+          "topic": "Evaluation metrics",
+          "minutes": 35
+        }
+      ],
+      "minutes": 90
+    },
+    {
+      "day": 5,
+      "sessions": [
+        {
+          "topic": "Reinforcement learning",
+          "minutes": 35
+        },
+        {
+          "topic": "Bias-variance tradeoff",
+          "minutes": 35
+        },
+        {
+          "topic": "Principal component analysis",
+          "minutes": 20
+        }
+      ],
+      "minutes": 90
+    }
+  ],
+  "summary": {
+    "topics_in_plan": 10,
+    "days": 5,
+    "minutes_per_day": 90,
+    "signals_used": [
+      "topic_frequency",
+      "syllabus_coverage",
+      "weak_topics"
+    ],
+    "headline": "Start with: Neural networks, Overfitting and regularization, Decision trees."
+  },
+  "notes": []
+}

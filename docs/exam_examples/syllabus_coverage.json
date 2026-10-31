@@ -1,0 +1,247 @@
+{
+  "embedder": "lexical",
+  "thresholds": {
+    "covered": 0.65,
+    "partial": 0.4
+  },
+  "topics": [
+    {
+      "topic": "Neural networks",
+      "status": "Covered",
+      "document": "Lecture 3 - Neural Networks.pdf",
+      "document_id": "lec_01",
+      "pages": [
+        4,
+        5
+      ],
+      "evidence_score": 0.73,
+      "semantic_similarity": 0.2,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "neural",
+        "network"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "Training a neural network uses backpropagation to compute gradients of the loss with respect to every weight.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 3 - Neural Networks.pdf, pages 4, 5 (key terms found: neural, network)."
+    },
+    {
+      "topic": "Gradient descent",
+      "status": "Covered",
+      "document": "Lecture 3 - Neural Networks.pdf",
+      "document_id": "lec_01",
+      "pages": [
+        5
+      ],
+      "evidence_score": 0.86,
+      "semantic_similarity": 0.27,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "gradient",
+        "descent"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "The weights are then updated using gradient descent.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 3 - Neural Networks.pdf, page 5 (key terms found: gradient, descent)."
+    },
+    {
+      "topic": "Decision trees",
+      "status": "Covered",
+      "document": "Lecture 5 - Trees and Ensembles.pdf",
+      "document_id": "lec_02",
+      "pages": [
+        2
+      ],
+      "evidence_score": 0.87,
+      "semantic_similarity": 0.28,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "decision",
+        "tree"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "A decision tree repeatedly splits the data on the feature that gives the largest information gain, measured with entropy.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 5 - Trees and Ensembles.pdf, page 2 (key terms found: decision, tree)."
+    },
+    {
+      "topic": "K-means clustering",
+      "status": "Covered",
+      "document": "Lecture 6 - Clustering.pdf",
+      "document_id": "lec_03",
+      "pages": [
+        1
+      ],
+      "evidence_score": 0.81,
+      "semantic_similarity": 0.24,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "k-mean",
+        "cluster"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "K-means clustering partitions data into k groups.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 6 - Clustering.pdf, page 1 (key terms found: k-mean, cluster)."
+    },
+    {
+      "topic": "Overfitting and regularization",
+      "status": "Covered",
+      "document": "Lecture 2 - Model Generalisation.pdf",
+      "document_id": "lec_04",
+      "pages": [
+        3
+      ],
+      "evidence_score": 0.79,
+      "semantic_similarity": 0.23,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "overfit",
+        "regularization"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "A model that fits noise in the training set but fails on new data is said to overfit.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 2 - Model Generalisation.pdf, page 3 (key terms found: overfit, regularization)."
+    },
+    {
+      "topic": "Support vector machines",
+      "status": "Covered",
+      "document": "Lecture 7 - Kernel Methods.pdf",
+      "document_id": "lec_05",
+      "pages": [
+        2
+      ],
+      "evidence_score": 0.75,
+      "semantic_similarity": 0.0,
+      "term_coverage": 0.95,
+      "matched_terms": [
+        "support",
+        "vector",
+        "machin"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "The SVM finds the separating hyperplane with the maximum margin.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 7 - Kernel Methods.pdf, page 2 (key terms found: support, vector, machin)."
+    },
+    {
+      "topic": "Bias-variance tradeoff",
+      "status": "Covered",
+      "document": "Lecture 2 - Model Generalisation.pdf",
+      "document_id": "lec_04",
+      "pages": [
+        6
+      ],
+      "evidence_score": 0.8,
+      "semantic_similarity": 0.23,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "bia",
+        "varianc",
+        "tradeoff"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "Model error decomposes into bias and variance.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 2 - Model Generalisation.pdf, page 6 (key terms found: bia, varianc, tradeoff)."
+    },
+    {
+      "topic": "Principal component analysis",
+      "status": "Covered",
+      "document": "Lecture 9 - Dimensionality.pdf",
+      "document_id": "lec_07",
+      "pages": [
+        1
+      ],
+      "evidence_score": 1.0,
+      "semantic_similarity": 0.4,
+      "term_coverage": 1.0,
+      "matched_terms": [
+        "principal",
+        "component",
+        "analysis"
+      ],
+      "missing_terms": [],
+      "other_documents": [],
+      "evidence_snippet": "Principal component analysis projects data onto orthogonal directions.",
+      "closest_material": null,
+      "subtopics": [],
+      "explanation": "Your notes cover this: strong match in Lecture 9 - Dimensionality.pdf, page 1 (key terms found: principal, component, analysis)."
+    },
+    {
+      "topic": "Reinforcement learning",
+      "status": "Not covered",
+      "document": null,
+      "document_id": null,
+      "pages": [],
+      "evidence_score": 0.37,
+      "semantic_similarity": 0.11,
+      "term_coverage": 0.44,
+      "matched_terms": [
+        "learn"
+      ],
+      "missing_terms": [
+        "reinforcement"
+      ],
+      "other_documents": [],
+      "evidence_snippet": "",
+      "closest_material": {
+        "document": "Lecture 3 - Neural Networks.pdf",
+        "page": 5
+      },
+      "subtopics": [],
+      "explanation": "No lecture content in the uploaded notes addresses this topic. The closest material is page 5 of Lecture 3 - Neural Networks.pdf, but it is not similar enough to count."
+    },
+    {
+      "topic": "Evaluation metrics",
+      "status": "Not covered",
+      "document": null,
+      "document_id": null,
+      "pages": [],
+      "evidence_score": 0.0,
+      "semantic_similarity": 0.0,
+      "term_coverage": 0.0,
+      "matched_terms": [],
+      "missing_terms": [
+        "evaluation",
+        "metric"
+      ],
+      "other_documents": [],
+      "evidence_snippet": "",
+      "closest_material": {
+        "document": "Lecture 3 - Neural Networks.pdf",
+        "page": 4
+      },
+      "subtopics": [],
+      "explanation": "No lecture content in the uploaded notes addresses this topic. The closest material is page 4 of Lecture 3 - Neural Networks.pdf, but it is not similar enough to count."
+    }
+  ],
+  "summary": {
+    "total_topics": 10,
+    "covered": 8,
+    "partially_covered": 0,
+    "not_covered": 2,
+    "coverage_pct": 80.0,
+    "gaps": [
+      "Reinforcement learning",
+      "Evaluation metrics"
+    ]
+  }
+}
