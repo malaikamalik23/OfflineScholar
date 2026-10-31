@@ -37,7 +37,7 @@ from .matching import MatchMatrices, score_matches
 from .text_utils import first_sentences, split_sentences, content_terms
 
 COVERED_MIN = 0.65
-PARTIAL_MIN = 0.35          # dense embedders
+PARTIAL_MIN = 0.55          # dense embedders (was 0.35; raised after real-PDF checks: unrelated topics scored 0.38-0.53)
 PARTIAL_MIN_LEXICAL = 0.40  # TF-IDF fallback: term overlap is noisier, so ask for a bit more
 CONTEXT_CAP = 0.64  # evidence assembled only from spread-out context can reach Partial, never Covered
 
