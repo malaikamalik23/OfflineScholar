@@ -17,6 +17,7 @@ from typing import Callable, Sequence
 
 import numpy as np
 
+from .text_utils import strip_running_lines
 from .embeddings import get_embedder
 from .performance_analysis import analyze_weak_topics
 from .question_extraction import extract_questions_from_chunks
@@ -52,7 +53,7 @@ class ExamEngine:
         """Modules 1+2. When ``syllabus_topics`` is given, ``topic_frequency`` is computed against
         those topics (so names line up with syllabus coverage and the revision plan) and the
         topics discovered from the questions themselves are returned as ``discovered_topic_frequency``."""
-        questions = extract_questions_from_chunks(page_records)
+        questions = extract_questions_from_chunks(strip_running_lines(page_records))
         groups = group_similar_questions(questions, embedder=self.embedder)
         discovered = calculate_topic_frequency(questions, embedder=self.embedder)
         freq = (calculate_topic_frequency(questions, topics=syllabus_topics, embedder=self.embedder)
@@ -73,7 +74,7 @@ class ExamEngine:
 
     # Module 3
     def syllabus_coverage(self, syllabus_topics: Sequence, lecture_chunks: Sequence[dict]) -> dict:
-        return jsonable(analyze_syllabus_coverage(syllabus_topics, lecture_chunks, embedder=self.embedder))
+        return jsonable(analyze_syllabus_coverage(syllabus_topics, strip_running_lines(lecture_chunks), embedder=self.embedder))
 
     # Module 4
     def make_quiz(self, context, topic: str, n_questions: int = 5, seed: int = 0) -> dict:
