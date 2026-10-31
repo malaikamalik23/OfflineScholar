@@ -50,7 +50,7 @@ def test_chunks_respect_size_pages_and_overlap():
     text = " ".join(f"Sentence number {i} talks about topic {i}." for i in range(60))
     pages = [PageText(1, text), PageText(2, "Second page content that is long enough to keep.")]
     chunks = chunk_pages(pages, chunk_size=300, overlap=80)
-    assert all(len(c.text) <= 300 for c in chunks)
+    assert all(len(c.text) <= 300 * 1.25 for c in chunks)  # tail merge may exceed size by 25%
     assert [c.chunk_index for c in chunks] == list(range(len(chunks)))
     assert {c.page_number for c in chunks} == {1, 2}
     page1 = [c for c in chunks if c.page_number == 1]
@@ -81,3 +81,14 @@ def test_text_rich_page_with_picture_is_not_ocrd(tmp_path):
     p = make_slide_pdf(tmp_path / "rich.pdf", "Photosynthesis", "diagram label", body=body)
     doc = extract_document(p, ocr_enabled=True)
     assert doc.ocr_pages == 0 and "chloroplasts" in doc.pages[0].text
+
+
+def test_page_does_not_end_in_tiny_fragment():
+    """Regression: an OCR'd slide was split 878 + 203 chars and the final result ("= 0.247") ended
+    up alone in the fragment, so the model answered with an intermediate number."""
+    words = " ".join(f"w{i}" for i in range(220))  # ~990 chars, no sentence ends, like OCR text
+    text = words + " Gain(Outlook) = 0.940 - 0.694 = 0.247"
+    chunks = chunk_pages([PageText(15, text)], chunk_size=900, overlap=150)
+    assert len(chunks) == 1 and chunks[0].text.endswith("= 0.247")
+    long = chunk_pages([PageText(1, words * 4)], chunk_size=900, overlap=150)
+    assert len(long) > 1 and all(len(c.text) >= 900 * 0.25 for c in long)
