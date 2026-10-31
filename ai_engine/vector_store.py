@@ -6,10 +6,13 @@ Vectors are L2-normalised, so inner product == cosine similarity. The FAISS vect
 from __future__ import annotations
 
 import threading
+import time
 from pathlib import Path
 
 import faiss
 import numpy as np
+
+REPLACE_ATTEMPTS = 5
 
 
 class VectorStore:
@@ -39,7 +42,14 @@ class VectorStore:
     def _save(self, subject_id: int) -> None:
         tmp = self._path(subject_id).with_suffix(".tmp")
         faiss.write_index(self._indexes[subject_id], str(tmp))
-        tmp.replace(self._path(subject_id))
+        for attempt in range(REPLACE_ATTEMPTS):
+            try:
+                tmp.replace(self._path(subject_id))
+                return
+            except PermissionError:  # Windows: antivirus/indexer/sync briefly holding the file
+                if attempt == REPLACE_ATTEMPTS - 1:
+                    raise
+                time.sleep(0.1 * (attempt + 1))
 
     def add(self, subject_id: int, ids: list[int], vectors: np.ndarray) -> None:
         if len(ids) != len(vectors):

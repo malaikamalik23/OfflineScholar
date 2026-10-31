@@ -4,6 +4,7 @@ from __future__ import annotations
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from ai_engine.embeddings import EmbeddingModelUnavailableError
 from ai_engine.llm import LLMUnavailableError
 
 
@@ -25,3 +26,7 @@ def register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(LLMUnavailableError)
     async def _llm_error(_: Request, exc: LLMUnavailableError):
         return JSONResponse(_body("llm_unavailable", str(exc)), status_code=503)
+
+    @app.exception_handler(EmbeddingModelUnavailableError)
+    async def _embedding_error(_: Request, exc: EmbeddingModelUnavailableError):
+        return JSONResponse(_body("embedding_model_unavailable", str(exc)), status_code=503)

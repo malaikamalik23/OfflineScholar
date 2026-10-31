@@ -2,40 +2,46 @@ name: tests
 
 on:
   push:
-    branches: [main]
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   pytest:
+    name: pytest (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+        include:
+          - { os: ubuntu-latest, python: "3.11" }
+          - { os: ubuntu-latest, python: "3.12" }
+          - { os: windows-latest, python: "3.11" }  # the team develops on Windows
     env:
-      # Tests use a hashing embedder and a fake LLM; never download models in CI.
+      # The suite uses the hashing embedder and a fake LLM. Forbid any model download so a test that
+      # accidentally needs the real models fails loudly instead of pulling ~100 MB from Hugging Face.
       HF_HUB_OFFLINE: "1"
-      OS_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python }}
           cache: pip
-          cache-dependency-path: |
-            requirements.txt
-            requirements-dev.txt
+          cache-dependency-path: requirements*.txt
 
-      - name: Install Tesseract (OCR test)
+      - name: Install Tesseract (OCR tests)
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tesseract-ocr
 
-      - name: Install dependencies
+      - name: Install dependencies (CPU-only PyTorch, no CUDA download)
         run: |
           python -m pip install --upgrade pip
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install -r requirements-dev.txt
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r requirements-dev.txt
 
       - name: Run tests
         run: python -m pytest -q

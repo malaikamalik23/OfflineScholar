@@ -31,7 +31,7 @@ def build_services(settings: Settings, *, embedder: Embedder | None = None, llm:
         vector_store=VectorStore(settings.index_dir, lambda: embedder.dim),
         llm=llm or OllamaClient(
             settings.ollama_url, settings.ollama_model, settings.ollama_timeout,
-            settings.llm_temperature, settings.llm_num_ctx,
+            settings.llm_temperature, settings.llm_num_ctx, settings.llm_max_tokens,
         ),
     )
 

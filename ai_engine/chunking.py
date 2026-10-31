@@ -8,6 +8,9 @@ from .extraction import PageText
 
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
 MIN_CHUNK_CHARS = 20
+# A page's leftover text shorter than this fraction of chunk_size is appended to the previous chunk
+# (so chunks can reach 1.25 x chunk_size) instead of becoming a separate fragment.
+TAIL_MERGE_FRACTION = 0.25
 
 
 @dataclass
@@ -40,6 +43,7 @@ def _split_page(text: str, size: int, overlap: int) -> list[str]:
     chunks: list[str] = []
     cur: list[str] = []
     cur_len = 0
+    carried = 0  # how many units at the start of `cur` are overlap copied from the previous chunk
     for u in units:
         add = len(u) + (1 if cur else 0)
         if cur and cur_len + add > size:
@@ -51,14 +55,19 @@ def _split_page(text: str, size: int, overlap: int) -> list[str]:
                     break
                 tail.insert(0, prev)
                 tail_len += len(prev) + 1
-            cur, cur_len = tail, sum(len(t) + 1 for t in tail) - (1 if tail else 0)
+            cur, cur_len, carried = tail, sum(len(t) + 1 for t in tail) - (1 if tail else 0), len(tail)
             add = len(u) + (1 if cur else 0)
         cur.append(u)
         cur_len += add
     if cur:
-        last = " ".join(cur)
-        if not chunks or last != chunks[-1]:
-            chunks.append(last)
+        new = cur[carried:]
+        new_len = sum(len(t) + 1 for t in new)
+        if chunks and new and new_len <= size * TAIL_MERGE_FRACTION:
+            # A page should not end in a tiny fragment: on a real slide the final result
+            # ("= 0.940 - 0.694 = 0.247") was split off and the model quoted the wrong number.
+            chunks[-1] += " " + " ".join(new)
+        elif new or not chunks:
+            chunks.append(" ".join(cur))
     return chunks
 
 

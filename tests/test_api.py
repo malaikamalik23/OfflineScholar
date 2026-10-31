@@ -10,7 +10,7 @@ from ai_engine.interfaces import (
     DocumentNotFoundError, generate_embeddings, get_document_chunks, retrieve_context,
 )
 
-from .conftest import upload
+from .conftest import BIOLOGY, upload
 
 
 def test_health(client):
@@ -201,3 +201,117 @@ def test_index_rebuilt_if_missing(settings, llm, pdfs):
         body = c.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
                                               "subject_id": doc["subject_id"]}).json()
         assert body["grounded"] is True
+
+
+def test_answer_padded_with_outside_knowledge_is_rejected(client, pdfs, llm):
+    """Regression (real qwen2.5:3b run): for a question the notes don't cover, the model answered from
+    general knowledge and cited a loosely related passage. Such answers must come back ungrounded."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("Random forests reduce overfitting by averaging many decorrelated trees trained on "
+                 "bootstrap samples, which lowers variance [1].")
+    body = client.post("/api/chat/ask", json={"question": "How does photosynthesis relate to random forests?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is False and body["sources"] == []
+    assert "couldn't find" in body["answer"].lower()
+
+
+def test_paraphrased_answer_from_passages_is_kept(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "It happens in the chloroplasts, where chlorophyll absorbs sunlight [1]."
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is True and body["sources"][0]["page_number"] == 1
+
+
+def test_db_not_locked_while_embedding(settings, llm, pdfs):
+    """Regression: chunks were inserted (taking SQLite's write lock) and only then embedded. A big PDF
+    embeds for 30 s+ on a laptop CPU, so concurrent uploads/deletes/quiz submits hit 'database is locked'."""
+    import sqlite3
+
+    from fastapi.testclient import TestClient
+
+    from ai_engine.embeddings import HashingEmbedder
+    from ai_engine.runtime import build_services
+    from backend.main import create_app
+
+    db_file = settings.data_dir / "offline_scholar.db"
+    lock_errors: list[str] = []
+
+    class ProbingEmbedder(HashingEmbedder):
+        def embed(self, texts):
+            if len(texts) > 1:  # document chunks, not a query
+                con = sqlite3.connect(db_file, timeout=0.2)
+                try:
+                    con.execute("BEGIN IMMEDIATE")  # what any other writer needs
+                    con.execute("ROLLBACK")
+                except sqlite3.OperationalError as exc:
+                    lock_errors.append(str(exc))
+                finally:
+                    con.close()
+            return super().embed(texts)
+
+    with TestClient(create_app(settings, build_services(settings, embedder=ProbingEmbedder(), llm=llm))) as c:
+        doc = upload(c, pdfs["biology"], subject_name="Biology")
+        assert c.get(f"/api/documents/{doc['id']}/status").json()["status"] == "ready"
+    assert lock_errors == []
+
+
+def test_abstention_with_explanation_is_not_grounded(client, pdfs, llm):
+    """The model sometimes explains before abstaining; stripping the token must not leave an 'answer'."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    # Words all come from the passages, so the support guard alone would let this through.
+    llm.reply = ("The passages only say that photosynthesis takes place in the chloroplasts, where "
+                 "chlorophyll absorbs sunlight. NOT_FOUND")
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls, "the model must have been asked"
+    assert body["grounded"] is False and body["sources"] == []
+
+
+def test_general_knowledge_hidden_behind_echoed_passages_is_rejected(client, pdfs, llm):
+    """Regression (real phi3:mini run): the model answered from general knowledge and then pasted the
+    prompt's passages, whose copied words made the answer look supported."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("Mitochondria generate ATP using a proton gradient. [1] (Biology 01.pdf, page 1) " + BIOLOGY[0])
+    body = client.post("/api/chat/ask", json={"question": "How do the light reactions of photosynthesis make ATP?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False
+
+
+def test_refusal_in_prose_is_not_grounded(client, pdfs, llm):
+    """Regression (real phi3:mini run): refused in words instead of NOT_FOUND, then echoed the passages."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("I'm sorry, but the provided context passages do not contain information about this. "
+                 "Context passages: [1] (Biology 01.pdf, page 1) " + BIOLOGY[0])
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False and body["sources"] == []
+
+
+def test_echoed_page_headers_are_removed_from_answer(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "[1] (Biology 01.pdf, page 1) Photosynthesis takes place in the chloroplasts. [1]"
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is True and "page 1)" not in body["answer"]
+    assert body["answer"].startswith("[1] Photosynthesis takes place in the chloroplasts")
+
+
+@pytest.mark.parametrize("token", ["NOTFOUND.", "NOT FOUND", "NOT-FOUND."])
+def test_misspelled_not_found_token_is_an_abstention(client, pdfs, llm, token):
+    """Regression (real llama3.2:3b run): the model wrote NOTFOUND / NOT FOUND instead of NOT_FOUND. With an
+    explanation in the passages' own words before it, only the abstention parsing can catch it."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("The passages only say that photosynthesis takes place in the chloroplasts, where "
+                 "chlorophyll absorbs sunlight. " + token)
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False and body["sources"] == []
+
+
+def test_bare_lowercase_token_is_an_abstention(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "not_found"
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is False
