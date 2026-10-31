@@ -1,0 +1,123 @@
+{
+  "overall": {
+    "attempted": 15,
+    "correct": 4,
+    "incorrect": 11,
+    "accuracy": 0.267
+  },
+  "weak_topics": [
+    "Neural networks",
+    "Decision trees"
+  ],
+  "strong_topics": [],
+  "topics": [
+    {
+      "topic": "Neural networks",
+      "attempted": 6,
+      "correct": 0,
+      "incorrect": 6,
+      "accuracy": 0.0,
+      "smoothed_accuracy": 0.125,
+      "status": "weak",
+      "trend": "steady",
+      "accuracy_by_difficulty": {
+        "intermediate": {
+          "attempted": 6,
+          "correct": 0,
+          "accuracy": 0.0
+        }
+      },
+      "repeatedly_missed_questions": [
+        {
+          "question_id": "neural-networks-e23f69db",
+          "times_wrong": 3
+        },
+        {
+          "question_id": "neural-networks-7d7db22c",
+          "times_wrong": 3
+        }
+      ],
+      "revision_priority": 97.5,
+      "priority_label": "High",
+      "review_pointers": [
+        {
+          "document": "Lecture 3 - Neural Networks.pdf",
+          "page": 4
+        }
+      ],
+      "recommendation": "0/6 correct on Neural networks (0%): revise this topic; 2 question(s) were missed more than once — go through their explanations; start with Lecture 3 - Neural Networks.pdf, page 4.",
+      "revise_after": []
+    },
+    {
+      "topic": "Decision trees",
+      "attempted": 6,
+      "correct": 2,
+      "incorrect": 4,
+      "accuracy": 0.333,
+      "smoothed_accuracy": 0.375,
+      "status": "weak",
+      "trend": "steady",
+      "accuracy_by_difficulty": {
+        "intermediate": {
+          "attempted": 6,
+          "correct": 2,
+          "accuracy": 0.333
+        }
+      },
+      "repeatedly_missed_questions": [
+        {
+          "question_id": "decision-trees-fa995f02",
+          "times_wrong": 3
+        }
+      ],
+      "revision_priority": 67.5,
+      "priority_label": "High",
+      "review_pointers": [
+        {
+          "document": "Lecture 5 - Trees and Ensembles.pdf",
+          "page": 2
+        }
+      ],
+      "recommendation": "2/6 correct on Decision trees (33%): revise this topic; 1 question(s) were missed more than once — go through their explanations; start with Lecture 5 - Trees and Ensembles.pdf, page 2.",
+      "revise_after": []
+    },
+    {
+      "topic": "Overfitting and regularization",
+      "attempted": 3,
+      "correct": 2,
+      "incorrect": 1,
+      "accuracy": 0.667,
+      "smoothed_accuracy": 0.6,
+      "status": "developing",
+      "trend": null,
+      "accuracy_by_difficulty": {
+        "intermediate": {
+          "attempted": 3,
+          "correct": 2,
+          "accuracy": 0.667
+        }
+      },
+      "repeatedly_missed_questions": [],
+      "revision_priority": 30.0,
+      "priority_label": "Medium",
+      "review_pointers": [
+        {
+          "document": "Lecture 2 - Model Generalisation.pdf",
+          "page": 3
+        }
+      ],
+      "recommendation": "2/3 correct on Overfitting and regularization (67%): revise this topic; start with Lecture 2 - Model Generalisation.pdf, page 3.",
+      "revise_after": []
+    }
+  ],
+  "revision_order": [
+    "Neural networks",
+    "Decision trees",
+    "Overfitting and regularization"
+  ],
+  "settings": {
+    "min_attempts": 3,
+    "weak_below": 0.6,
+    "strong_from": 0.8
+  }
+}

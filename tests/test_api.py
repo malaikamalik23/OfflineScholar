@@ -152,6 +152,7 @@ def test_quiz_submit_updates_topic_performance(client, pdfs):
 def test_exam_engine_endpoints(client, pdfs, monkeypatch):
     sid = upload(client, pdfs["biology"], subject_name="Biology")["subject_id"]
     monkeypatch.setitem(sys.modules, "exam_engine", None)  # simulate "not installed yet"
+    monkeypatch.setitem(sys.modules, "exam_engine.api", None)  # (the real submodule may already be imported)
     r = client.get(f"/api/analysis/{sid}")
     assert r.status_code == 501 and r.json()["error"]["code"] == "exam_engine_unavailable"
 

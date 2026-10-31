@@ -1,0 +1,2228 @@
+{
+  "questions": [
+    {
+      "number": "1",
+      "text": "Define overfitting in machine learning.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q1"
+    },
+    {
+      "number": "2",
+      "text": "What is the learning rate in gradient descent?",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q2"
+    },
+    {
+      "number": "3",
+      "text": "State the difference between supervised and unsupervised learning.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "list",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q3"
+    },
+    {
+      "number": "4",
+      "text": "Explain the working of a neural network.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q4"
+    },
+    {
+      "number": "5a",
+      "text": "Describe how a decision tree chooses a split using information gain.",
+      "marks": 5,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q5a"
+    },
+    {
+      "number": "5b",
+      "text": "Explain pruning of decision trees.",
+      "marks": 5,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q5b"
+    },
+    {
+      "number": "6",
+      "text": "Discuss the K-means clustering algorithm with an example.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 2,
+      "confidence": 0.9,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q6"
+    },
+    {
+      "number": "7",
+      "text": "Explain the bias-variance tradeoff.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 2,
+      "confidence": 0.8,
+      "document_id": "paper_2022",
+      "document_name": "ML Past Paper 2022.pdf",
+      "year": 2022,
+      "question_id": "paper_2022-Q7"
+    },
+    {
+      "number": "1",
+      "text": "What is overfitting? How can it be avoided?",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q1"
+    },
+    {
+      "number": "2",
+      "text": "Define regularization.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q2"
+    },
+    {
+      "number": "3",
+      "text": "What is a confusion matrix?",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q3"
+    },
+    {
+      "number": "4",
+      "text": "Describe how artificial neural networks function.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q4"
+    },
+    {
+      "number": "5",
+      "text": "Explain gradient descent and its variants.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q5"
+    },
+    {
+      "number": "6",
+      "text": "Describe the K-means clustering procedure and its limitations.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q6"
+    },
+    {
+      "number": "7",
+      "text": "What is a support vector machine? Explain the role of the kernel.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "define",
+      "page_number": 2,
+      "confidence": 0.9,
+      "document_id": "paper_2023",
+      "document_name": "ML Past Paper 2023.pdf",
+      "year": 2023,
+      "question_id": "paper_2023-Q7"
+    },
+    {
+      "number": "1",
+      "text": "Define precision and recall.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q1"
+    },
+    {
+      "number": "2",
+      "text": "What is overfitting and why does it occur?",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q2"
+    },
+    {
+      "number": "3",
+      "text": "Explain the term backpropagation.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q3"
+    },
+    {
+      "number": "4",
+      "text": "Explain how decision trees are built and pruned.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q4"
+    },
+    {
+      "number": "5",
+      "text": "Discuss the training of a neural network using backpropagation.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q5"
+    },
+    {
+      "number": "6",
+      "text": "Explain the bias and variance trade-off in model selection.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q6"
+    },
+    {
+      "number": "7",
+      "text": "Explain principal component analysis for dimensionality reduction.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2024",
+      "document_name": "ML Past Paper 2024.pdf",
+      "year": 2024,
+      "question_id": "paper_2024-Q7"
+    },
+    {
+      "number": "1",
+      "text": "Define overfitting and explain one technique to reduce it.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q1"
+    },
+    {
+      "number": "2",
+      "text": "What is a confusion matrix?",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "define",
+      "page_number": 1,
+      "confidence": 0.7,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q2"
+    },
+    {
+      "number": "3",
+      "text": "Write a short note on regularization.",
+      "marks": 3,
+      "section": "Section A",
+      "question_type": "short_note",
+      "page_number": 1,
+      "confidence": 0.8,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q3"
+    },
+    {
+      "number": "4",
+      "text": "Explain the working of a neural network and its activation functions.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q4"
+    },
+    {
+      "number": "5",
+      "text": "Describe the K-means algorithm. How is the number of clusters chosen?",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q5"
+    },
+    {
+      "number": "6",
+      "text": "Explain support vector machines and kernel functions.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q6"
+    },
+    {
+      "number": "7",
+      "text": "Explain gradient descent and the effect of the learning rate.",
+      "marks": 10,
+      "section": "Section B",
+      "question_type": "explain",
+      "page_number": 1,
+      "confidence": 0.9,
+      "document_id": "paper_2025",
+      "document_name": "ML Past Paper 2025.pdf",
+      "year": 2025,
+      "question_id": "paper_2025-Q7"
+    }
+  ],
+  "similar_question_groups": {
+    "embedder": "lexical",
+    "threshold": 0.5,
+    "total_questions": 29,
+    "total_papers": 4,
+    "groups": [
+      {
+        "group_id": "G1",
+        "representative": "Explain the working of a neural network.",
+        "size": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "repeated": true,
+        "match_type": "reworded",
+        "avg_similarity": 0.522,
+        "min_similarity": 0.44,
+        "shared_key_terms": [
+          "network",
+          "neural"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2022-Q4",
+            "number": "4",
+            "text": "Explain the working of a neural network.",
+            "marks": 10,
+            "document_id": "paper_2022",
+            "document_name": "ML Past Paper 2022.pdf",
+            "page_number": 1,
+            "year": 2022,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2023-Q4",
+            "number": "4",
+            "text": "Describe how artificial neural networks function.",
+            "marks": 10,
+            "document_id": "paper_2023",
+            "document_name": "ML Past Paper 2023.pdf",
+            "page_number": 1,
+            "year": 2023,
+            "similarity_to_representative": 0.563
+          },
+          {
+            "question_id": "paper_2025-Q4",
+            "number": "4",
+            "text": "Explain the working of a neural network and its activation functions.",
+            "marks": 10,
+            "document_id": "paper_2025",
+            "document_name": "ML Past Paper 2025.pdf",
+            "page_number": 1,
+            "year": 2025,
+            "similarity_to_representative": 0.563
+          }
+        ],
+        "explanation": "3 questions from 3 different papers (2022, 2023, 2025) are worded differently but ask about the same thing. Shared key terms: network, neural."
+      },
+      {
+        "group_id": "G2",
+        "representative": "Define regularization.",
+        "size": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "repeated": true,
+        "match_type": "exact",
+        "avg_similarity": 1.0,
+        "min_similarity": 1.0,
+        "shared_key_terms": [
+          "regularization"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2023-Q2",
+            "number": "2",
+            "text": "Define regularization.",
+            "marks": 3,
+            "document_id": "paper_2023",
+            "document_name": "ML Past Paper 2023.pdf",
+            "page_number": 1,
+            "year": 2023,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2025-Q3",
+            "number": "3",
+            "text": "Write a short note on regularization.",
+            "marks": 3,
+            "document_id": "paper_2025",
+            "document_name": "ML Past Paper 2025.pdf",
+            "page_number": 1,
+            "year": 2025,
+            "similarity_to_representative": 1.0
+          }
+        ],
+        "explanation": "2 questions from 2 different papers (2023, 2025) are worded identically. Shared key terms: regularization."
+      },
+      {
+        "group_id": "G3",
+        "representative": "What is a confusion matrix?",
+        "size": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "repeated": true,
+        "match_type": "exact",
+        "avg_similarity": 1.0,
+        "min_similarity": 1.0,
+        "shared_key_terms": [
+          "confusion",
+          "matrix"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2023-Q3",
+            "number": "3",
+            "text": "What is a confusion matrix?",
+            "marks": 3,
+            "document_id": "paper_2023",
+            "document_name": "ML Past Paper 2023.pdf",
+            "page_number": 1,
+            "year": 2023,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2025-Q2",
+            "number": "2",
+            "text": "What is a confusion matrix?",
+            "marks": 3,
+            "document_id": "paper_2025",
+            "document_name": "ML Past Paper 2025.pdf",
+            "page_number": 1,
+            "year": 2025,
+            "similarity_to_representative": 1.0
+          }
+        ],
+        "explanation": "2 questions from 2 different papers (2023, 2025) are worded identically. Shared key terms: confusion, matrix."
+      },
+      {
+        "group_id": "G4",
+        "representative": "What is the learning rate in gradient descent?",
+        "size": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2025
+        ],
+        "repeated": true,
+        "match_type": "reworded",
+        "avg_similarity": 0.683,
+        "min_similarity": 0.683,
+        "shared_key_terms": [
+          "gradient",
+          "descent",
+          "learning",
+          "rate"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2022-Q2",
+            "number": "2",
+            "text": "What is the learning rate in gradient descent?",
+            "marks": 3,
+            "document_id": "paper_2022",
+            "document_name": "ML Past Paper 2022.pdf",
+            "page_number": 1,
+            "year": 2022,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2025-Q7",
+            "number": "7",
+            "text": "Explain gradient descent and the effect of the learning rate.",
+            "marks": 10,
+            "document_id": "paper_2025",
+            "document_name": "ML Past Paper 2025.pdf",
+            "page_number": 1,
+            "year": 2025,
+            "similarity_to_representative": 0.683
+          }
+        ],
+        "explanation": "2 questions from 2 different papers (2022, 2025) are worded differently but ask about the same thing. Shared key terms: gradient, descent, learning, rate."
+      },
+      {
+        "group_id": "G5",
+        "representative": "What is a support vector machine? Explain the role of the kernel.",
+        "size": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "repeated": true,
+        "match_type": "reworded",
+        "avg_similarity": 0.621,
+        "min_similarity": 0.621,
+        "shared_key_terms": [
+          "support",
+          "kernel",
+          "vector",
+          "machine"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2023-Q7",
+            "number": "7",
+            "text": "What is a support vector machine? Explain the role of the kernel.",
+            "marks": 10,
+            "document_id": "paper_2023",
+            "document_name": "ML Past Paper 2023.pdf",
+            "page_number": 2,
+            "year": 2023,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2025-Q6",
+            "number": "6",
+            "text": "Explain support vector machines and kernel functions.",
+            "marks": 10,
+            "document_id": "paper_2025",
+            "document_name": "ML Past Paper 2025.pdf",
+            "page_number": 1,
+            "year": 2025,
+            "similarity_to_representative": 0.621
+          }
+        ],
+        "explanation": "2 questions from 2 different papers (2023, 2025) are worded differently but ask about the same thing. Shared key terms: support, kernel, vector, machine."
+      },
+      {
+        "group_id": "G6",
+        "representative": "Explain pruning of decision trees.",
+        "size": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2022,
+          2024
+        ],
+        "repeated": true,
+        "match_type": "reworded",
+        "avg_similarity": 0.594,
+        "min_similarity": 0.594,
+        "shared_key_terms": [
+          "decision",
+          "trees",
+          "pruning"
+        ],
+        "members": [
+          {
+            "question_id": "paper_2022-Q5b",
+            "number": "5b",
+            "text": "Explain pruning of decision trees.",
+            "marks": 5,
+            "document_id": "paper_2022",
+            "document_name": "ML Past Paper 2022.pdf",
+            "page_number": 1,
+            "year": 2022,
+            "similarity_to_representative": 1.0
+          },
+          {
+            "question_id": "paper_2024-Q4",
+            "number": "4",
+            "text": "Explain how decision trees are built and pruned.",
+            "marks": 10,
+            "document_id": "paper_2024",
+            "document_name": "ML Past Paper 2024.pdf",
+            "page_number": 1,
+            "year": 2024,
+            "similarity_to_representative": 0.594
+          }
+        ],
+        "explanation": "2 questions from 2 different papers (2022, 2024) are worded differently but ask about the same thing. Shared key terms: decision, trees, pruning."
+      }
+    ],
+    "unique_questions": [
+      {
+        "question_id": "paper_2022-Q1",
+        "number": "1",
+        "text": "Define overfitting in machine learning.",
+        "marks": 3,
+        "document_id": "paper_2022",
+        "document_name": "ML Past Paper 2022.pdf",
+        "page_number": 1,
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2022-Q3",
+        "number": "3",
+        "text": "State the difference between supervised and unsupervised learning.",
+        "marks": 3,
+        "document_id": "paper_2022",
+        "document_name": "ML Past Paper 2022.pdf",
+        "page_number": 1,
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2022-Q5a",
+        "number": "5a",
+        "text": "Describe how a decision tree chooses a split using information gain.",
+        "marks": 5,
+        "document_id": "paper_2022",
+        "document_name": "ML Past Paper 2022.pdf",
+        "page_number": 1,
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2022-Q6",
+        "number": "6",
+        "text": "Discuss the K-means clustering algorithm with an example.",
+        "marks": 10,
+        "document_id": "paper_2022",
+        "document_name": "ML Past Paper 2022.pdf",
+        "page_number": 2,
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2022-Q7",
+        "number": "7",
+        "text": "Explain the bias-variance tradeoff.",
+        "marks": 10,
+        "document_id": "paper_2022",
+        "document_name": "ML Past Paper 2022.pdf",
+        "page_number": 2,
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2023-Q1",
+        "number": "1",
+        "text": "What is overfitting? How can it be avoided?",
+        "marks": 3,
+        "document_id": "paper_2023",
+        "document_name": "ML Past Paper 2023.pdf",
+        "page_number": 1,
+        "year": 2023
+      },
+      {
+        "question_id": "paper_2023-Q5",
+        "number": "5",
+        "text": "Explain gradient descent and its variants.",
+        "marks": 10,
+        "document_id": "paper_2023",
+        "document_name": "ML Past Paper 2023.pdf",
+        "page_number": 1,
+        "year": 2023
+      },
+      {
+        "question_id": "paper_2023-Q6",
+        "number": "6",
+        "text": "Describe the K-means clustering procedure and its limitations.",
+        "marks": 10,
+        "document_id": "paper_2023",
+        "document_name": "ML Past Paper 2023.pdf",
+        "page_number": 1,
+        "year": 2023
+      },
+      {
+        "question_id": "paper_2024-Q1",
+        "number": "1",
+        "text": "Define precision and recall.",
+        "marks": 3,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q2",
+        "number": "2",
+        "text": "What is overfitting and why does it occur?",
+        "marks": 3,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q3",
+        "number": "3",
+        "text": "Explain the term backpropagation.",
+        "marks": 3,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q5",
+        "number": "5",
+        "text": "Discuss the training of a neural network using backpropagation.",
+        "marks": 10,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q6",
+        "number": "6",
+        "text": "Explain the bias and variance trade-off in model selection.",
+        "marks": 10,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q7",
+        "number": "7",
+        "text": "Explain principal component analysis for dimensionality reduction.",
+        "marks": 10,
+        "document_id": "paper_2024",
+        "document_name": "ML Past Paper 2024.pdf",
+        "page_number": 1,
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2025-Q1",
+        "number": "1",
+        "text": "Define overfitting and explain one technique to reduce it.",
+        "marks": 3,
+        "document_id": "paper_2025",
+        "document_name": "ML Past Paper 2025.pdf",
+        "page_number": 1,
+        "year": 2025
+      },
+      {
+        "question_id": "paper_2025-Q5",
+        "number": "5",
+        "text": "Describe the K-means algorithm. How is the number of clusters chosen?",
+        "marks": 10,
+        "document_id": "paper_2025",
+        "document_name": "ML Past Paper 2025.pdf",
+        "page_number": 1,
+        "year": 2025
+      }
+    ],
+    "summary": {
+      "repeated_groups": 6,
+      "questions_in_groups": 13,
+      "unique_question_count": 16
+    }
+  },
+  "repeated_questions": [
+    {
+      "group_id": "G1",
+      "representative": "Explain the working of a neural network.",
+      "size": 3,
+      "paper_count": 3,
+      "papers": [
+        "ML Past Paper 2022.pdf",
+        "ML Past Paper 2023.pdf",
+        "ML Past Paper 2025.pdf"
+      ],
+      "years": [
+        2022,
+        2023,
+        2025
+      ],
+      "repeated": true,
+      "match_type": "reworded",
+      "avg_similarity": 0.522,
+      "min_similarity": 0.44,
+      "shared_key_terms": [
+        "network",
+        "neural"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2022-Q4",
+          "number": "4",
+          "text": "Explain the working of a neural network.",
+          "marks": 10,
+          "document_id": "paper_2022",
+          "document_name": "ML Past Paper 2022.pdf",
+          "page_number": 1,
+          "year": 2022,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2023-Q4",
+          "number": "4",
+          "text": "Describe how artificial neural networks function.",
+          "marks": 10,
+          "document_id": "paper_2023",
+          "document_name": "ML Past Paper 2023.pdf",
+          "page_number": 1,
+          "year": 2023,
+          "similarity_to_representative": 0.563
+        },
+        {
+          "question_id": "paper_2025-Q4",
+          "number": "4",
+          "text": "Explain the working of a neural network and its activation functions.",
+          "marks": 10,
+          "document_id": "paper_2025",
+          "document_name": "ML Past Paper 2025.pdf",
+          "page_number": 1,
+          "year": 2025,
+          "similarity_to_representative": 0.563
+        }
+      ],
+      "explanation": "3 questions from 3 different papers (2022, 2023, 2025) are worded differently but ask about the same thing. Shared key terms: network, neural."
+    },
+    {
+      "group_id": "G2",
+      "representative": "Define regularization.",
+      "size": 2,
+      "paper_count": 2,
+      "papers": [
+        "ML Past Paper 2023.pdf",
+        "ML Past Paper 2025.pdf"
+      ],
+      "years": [
+        2023,
+        2025
+      ],
+      "repeated": true,
+      "match_type": "exact",
+      "avg_similarity": 1.0,
+      "min_similarity": 1.0,
+      "shared_key_terms": [
+        "regularization"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2023-Q2",
+          "number": "2",
+          "text": "Define regularization.",
+          "marks": 3,
+          "document_id": "paper_2023",
+          "document_name": "ML Past Paper 2023.pdf",
+          "page_number": 1,
+          "year": 2023,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2025-Q3",
+          "number": "3",
+          "text": "Write a short note on regularization.",
+          "marks": 3,
+          "document_id": "paper_2025",
+          "document_name": "ML Past Paper 2025.pdf",
+          "page_number": 1,
+          "year": 2025,
+          "similarity_to_representative": 1.0
+        }
+      ],
+      "explanation": "2 questions from 2 different papers (2023, 2025) are worded identically. Shared key terms: regularization."
+    },
+    {
+      "group_id": "G3",
+      "representative": "What is a confusion matrix?",
+      "size": 2,
+      "paper_count": 2,
+      "papers": [
+        "ML Past Paper 2023.pdf",
+        "ML Past Paper 2025.pdf"
+      ],
+      "years": [
+        2023,
+        2025
+      ],
+      "repeated": true,
+      "match_type": "exact",
+      "avg_similarity": 1.0,
+      "min_similarity": 1.0,
+      "shared_key_terms": [
+        "confusion",
+        "matrix"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2023-Q3",
+          "number": "3",
+          "text": "What is a confusion matrix?",
+          "marks": 3,
+          "document_id": "paper_2023",
+          "document_name": "ML Past Paper 2023.pdf",
+          "page_number": 1,
+          "year": 2023,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2025-Q2",
+          "number": "2",
+          "text": "What is a confusion matrix?",
+          "marks": 3,
+          "document_id": "paper_2025",
+          "document_name": "ML Past Paper 2025.pdf",
+          "page_number": 1,
+          "year": 2025,
+          "similarity_to_representative": 1.0
+        }
+      ],
+      "explanation": "2 questions from 2 different papers (2023, 2025) are worded identically. Shared key terms: confusion, matrix."
+    },
+    {
+      "group_id": "G4",
+      "representative": "What is the learning rate in gradient descent?",
+      "size": 2,
+      "paper_count": 2,
+      "papers": [
+        "ML Past Paper 2022.pdf",
+        "ML Past Paper 2025.pdf"
+      ],
+      "years": [
+        2022,
+        2025
+      ],
+      "repeated": true,
+      "match_type": "reworded",
+      "avg_similarity": 0.683,
+      "min_similarity": 0.683,
+      "shared_key_terms": [
+        "gradient",
+        "descent",
+        "learning",
+        "rate"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2022-Q2",
+          "number": "2",
+          "text": "What is the learning rate in gradient descent?",
+          "marks": 3,
+          "document_id": "paper_2022",
+          "document_name": "ML Past Paper 2022.pdf",
+          "page_number": 1,
+          "year": 2022,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2025-Q7",
+          "number": "7",
+          "text": "Explain gradient descent and the effect of the learning rate.",
+          "marks": 10,
+          "document_id": "paper_2025",
+          "document_name": "ML Past Paper 2025.pdf",
+          "page_number": 1,
+          "year": 2025,
+          "similarity_to_representative": 0.683
+        }
+      ],
+      "explanation": "2 questions from 2 different papers (2022, 2025) are worded differently but ask about the same thing. Shared key terms: gradient, descent, learning, rate."
+    },
+    {
+      "group_id": "G5",
+      "representative": "What is a support vector machine? Explain the role of the kernel.",
+      "size": 2,
+      "paper_count": 2,
+      "papers": [
+        "ML Past Paper 2023.pdf",
+        "ML Past Paper 2025.pdf"
+      ],
+      "years": [
+        2023,
+        2025
+      ],
+      "repeated": true,
+      "match_type": "reworded",
+      "avg_similarity": 0.621,
+      "min_similarity": 0.621,
+      "shared_key_terms": [
+        "support",
+        "kernel",
+        "vector",
+        "machine"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2023-Q7",
+          "number": "7",
+          "text": "What is a support vector machine? Explain the role of the kernel.",
+          "marks": 10,
+          "document_id": "paper_2023",
+          "document_name": "ML Past Paper 2023.pdf",
+          "page_number": 2,
+          "year": 2023,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2025-Q6",
+          "number": "6",
+          "text": "Explain support vector machines and kernel functions.",
+          "marks": 10,
+          "document_id": "paper_2025",
+          "document_name": "ML Past Paper 2025.pdf",
+          "page_number": 1,
+          "year": 2025,
+          "similarity_to_representative": 0.621
+        }
+      ],
+      "explanation": "2 questions from 2 different papers (2023, 2025) are worded differently but ask about the same thing. Shared key terms: support, kernel, vector, machine."
+    },
+    {
+      "group_id": "G6",
+      "representative": "Explain pruning of decision trees.",
+      "size": 2,
+      "paper_count": 2,
+      "papers": [
+        "ML Past Paper 2022.pdf",
+        "ML Past Paper 2024.pdf"
+      ],
+      "years": [
+        2022,
+        2024
+      ],
+      "repeated": true,
+      "match_type": "reworded",
+      "avg_similarity": 0.594,
+      "min_similarity": 0.594,
+      "shared_key_terms": [
+        "decision",
+        "trees",
+        "pruning"
+      ],
+      "members": [
+        {
+          "question_id": "paper_2022-Q5b",
+          "number": "5b",
+          "text": "Explain pruning of decision trees.",
+          "marks": 5,
+          "document_id": "paper_2022",
+          "document_name": "ML Past Paper 2022.pdf",
+          "page_number": 1,
+          "year": 2022,
+          "similarity_to_representative": 1.0
+        },
+        {
+          "question_id": "paper_2024-Q4",
+          "number": "4",
+          "text": "Explain how decision trees are built and pruned.",
+          "marks": 10,
+          "document_id": "paper_2024",
+          "document_name": "ML Past Paper 2024.pdf",
+          "page_number": 1,
+          "year": 2024,
+          "similarity_to_representative": 0.594
+        }
+      ],
+      "explanation": "2 questions from 2 different papers (2022, 2024) are worded differently but ask about the same thing. Shared key terms: decision, trees, pruning."
+    }
+  ],
+  "topic_frequency": {
+    "total_questions": 29,
+    "total_papers": 4,
+    "topic_source": "syllabus_topics",
+    "topics": [
+      {
+        "topic": "Neural networks",
+        "question_count": 4,
+        "paper_count": 4,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2024.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "total_marks": 40,
+        "share_of_questions_pct": 13.8,
+        "share_of_marks_pct": 20.4,
+        "importance_score": 100.0,
+        "keywords": [
+          "function"
+        ],
+        "question_types": {
+          "explain": 4
+        },
+        "example_questions": [
+          "Explain the working of a neural network and its activation functions.",
+          "Discuss the training of a neural network using backpropagation.",
+          "Describe how artificial neural networks function."
+        ],
+        "question_ids": [
+          "paper_2022-Q4",
+          "paper_2023-Q4",
+          "paper_2024-Q5",
+          "paper_2025-Q4"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 1,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "K-means clustering",
+        "question_count": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "total_marks": 30,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 15.3,
+        "importance_score": 80.0,
+        "keywords": [
+          "algorithm"
+        ],
+        "question_types": {
+          "explain": 3
+        },
+        "example_questions": [
+          "Describe the K-means algorithm. How is the number of clusters chosen?",
+          "Describe the K-means clustering procedure and its limitations.",
+          "Discuss the K-means clustering algorithm with an example."
+        ],
+        "question_ids": [
+          "paper_2022-Q6",
+          "paper_2023-Q6",
+          "paper_2025-Q5"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 2,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Overfitting and regularization",
+        "question_count": 5,
+        "paper_count": 4,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2024.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "total_marks": 15,
+        "share_of_questions_pct": 17.2,
+        "share_of_marks_pct": 7.7,
+        "importance_score": 78.1,
+        "keywords": [],
+        "question_types": {
+          "define": 4,
+          "short_note": 1
+        },
+        "example_questions": [
+          "Write a short note on regularization.",
+          "What is overfitting and why does it occur?",
+          "What is overfitting? How can it be avoided?"
+        ],
+        "question_ids": [
+          "paper_2022-Q1",
+          "paper_2023-Q1",
+          "paper_2023-Q2",
+          "paper_2024-Q2",
+          "paper_2025-Q3"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 3,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 5 questions worth 15 marks (7.7% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Gradient descent",
+        "question_count": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "total_marks": 23,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 11.7,
+        "importance_score": 73.9,
+        "keywords": [
+          "learning rate"
+        ],
+        "question_types": {
+          "define": 1,
+          "explain": 2
+        },
+        "example_questions": [
+          "Explain gradient descent and the effect of the learning rate.",
+          "Explain gradient descent and its variants.",
+          "What is the learning rate in gradient descent?"
+        ],
+        "question_ids": [
+          "paper_2022-Q2",
+          "paper_2023-Q5",
+          "paper_2025-Q7"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 4,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Support vector machines",
+        "question_count": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "total_marks": 20,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 10.2,
+        "importance_score": 60.0,
+        "keywords": [
+          "kernel"
+        ],
+        "question_types": {
+          "define": 1,
+          "explain": 1
+        },
+        "example_questions": [
+          "Explain support vector machines and kernel functions.",
+          "What is a support vector machine? Explain the role of the kernel."
+        ],
+        "question_ids": [
+          "paper_2023-Q7",
+          "paper_2025-Q6"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 5,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Decision trees",
+        "question_count": 3,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2022,
+          2024
+        ],
+        "total_marks": 20,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 10.2,
+        "importance_score": 53.3,
+        "keywords": [
+          "pruning"
+        ],
+        "question_types": {
+          "explain": 3
+        },
+        "example_questions": [
+          "Explain how decision trees are built and pruned.",
+          "Describe how a decision tree chooses a split using information gain.",
+          "Explain pruning of decision trees."
+        ],
+        "question_ids": [
+          "paper_2022-Q5a",
+          "paper_2022-Q5b",
+          "paper_2024-Q4"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 6,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Bias-variance tradeoff",
+        "question_count": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2022,
+          2024
+        ],
+        "total_marks": 20,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 10.2,
+        "importance_score": 53.3,
+        "keywords": [],
+        "question_types": {
+          "explain": 2
+        },
+        "example_questions": [
+          "Explain the bias and variance trade-off in model selection.",
+          "Explain the bias-variance tradeoff."
+        ],
+        "question_ids": [
+          "paper_2022-Q7",
+          "paper_2024-Q6"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 7,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Principal component analysis",
+        "question_count": 1,
+        "paper_count": 1,
+        "papers": [
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2024
+        ],
+        "total_marks": 10,
+        "share_of_questions_pct": 3.4,
+        "share_of_marks_pct": 5.1,
+        "importance_score": 33.3,
+        "keywords": [
+          "dimensionality reduction"
+        ],
+        "question_types": {
+          "explain": 1
+        },
+        "example_questions": [
+          "Explain principal component analysis for dimensionality reduction."
+        ],
+        "question_ids": [
+          "paper_2024-Q7"
+        ],
+        "recurring": false,
+        "one_off": false,
+        "rank": 8,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Evaluation metrics",
+        "question_count": 0,
+        "paper_count": 0,
+        "papers": [],
+        "years": [],
+        "total_marks": null,
+        "share_of_questions_pct": 0.0,
+        "share_of_marks_pct": 0.0,
+        "importance_score": 0.0,
+        "keywords": [],
+        "question_types": {},
+        "example_questions": [],
+        "question_ids": [],
+        "recurring": false,
+        "one_off": false,
+        "rank": 9,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 0 of 4 papers; 0 questions."
+      },
+      {
+        "topic": "Reinforcement learning",
+        "question_count": 0,
+        "paper_count": 0,
+        "papers": [],
+        "years": [],
+        "total_marks": null,
+        "share_of_questions_pct": 0.0,
+        "share_of_marks_pct": 0.0,
+        "importance_score": 0.0,
+        "keywords": [],
+        "question_types": {},
+        "example_questions": [],
+        "question_ids": [],
+        "recurring": false,
+        "one_off": false,
+        "rank": 10,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 0 of 4 papers; 0 questions."
+      }
+    ],
+    "notes": [
+      "6 question(s) did not match any listed syllabus topic (see unmatched_questions) — the syllabus list may be missing a topic, or the wording differs too much for the current embedder."
+    ],
+    "scoring_basis": "recurrence across papers (45%) + exam weight (35%) + recency (20%)",
+    "unmatched_questions": [
+      {
+        "question_id": "paper_2022-Q3",
+        "text": "State the difference between supervised and unsupervised learning.",
+        "document_name": "ML Past Paper 2022.pdf",
+        "year": 2022
+      },
+      {
+        "question_id": "paper_2023-Q3",
+        "text": "What is a confusion matrix?",
+        "document_name": "ML Past Paper 2023.pdf",
+        "year": 2023
+      },
+      {
+        "question_id": "paper_2024-Q1",
+        "text": "Define precision and recall.",
+        "document_name": "ML Past Paper 2024.pdf",
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2024-Q3",
+        "text": "Explain the term backpropagation.",
+        "document_name": "ML Past Paper 2024.pdf",
+        "year": 2024
+      },
+      {
+        "question_id": "paper_2025-Q1",
+        "text": "Define overfitting and explain one technique to reduce it.",
+        "document_name": "ML Past Paper 2025.pdf",
+        "year": 2025
+      },
+      {
+        "question_id": "paper_2025-Q2",
+        "text": "What is a confusion matrix?",
+        "document_name": "ML Past Paper 2025.pdf",
+        "year": 2025
+      }
+    ]
+  },
+  "important_topics": [
+    {
+      "rank": 1,
+      "topic": "Neural networks",
+      "importance_label": "High",
+      "importance_score": 100.0,
+      "paper_count": 4,
+      "question_count": 4,
+      "years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "keywords": [
+        "function"
+      ],
+      "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 2,
+      "topic": "K-means clustering",
+      "importance_label": "High",
+      "importance_score": 80.0,
+      "paper_count": 3,
+      "question_count": 3,
+      "years": [
+        2022,
+        2023,
+        2025
+      ],
+      "keywords": [
+        "algorithm"
+      ],
+      "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 3,
+      "topic": "Overfitting and regularization",
+      "importance_label": "High",
+      "importance_score": 78.1,
+      "paper_count": 4,
+      "question_count": 5,
+      "years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "keywords": [],
+      "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 5 questions worth 15 marks (7.7% of all marks); usually asked as 'define' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 4,
+      "topic": "Gradient descent",
+      "importance_label": "High",
+      "importance_score": 73.9,
+      "paper_count": 3,
+      "question_count": 3,
+      "years": [
+        2022,
+        2023,
+        2025
+      ],
+      "keywords": [
+        "learning rate"
+      ],
+      "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 5,
+      "topic": "Support vector machines",
+      "importance_label": "Medium",
+      "importance_score": 60.0,
+      "paper_count": 2,
+      "question_count": 2,
+      "years": [
+        2023,
+        2025
+      ],
+      "keywords": [
+        "kernel"
+      ],
+      "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'define' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 6,
+      "topic": "Decision trees",
+      "importance_label": "Medium",
+      "importance_score": 53.3,
+      "paper_count": 2,
+      "question_count": 3,
+      "years": [
+        2022,
+        2024
+      ],
+      "keywords": [
+        "pruning"
+      ],
+      "why": "Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 7,
+      "topic": "Bias-variance tradeoff",
+      "importance_label": "Medium",
+      "importance_score": 53.3,
+      "paper_count": 2,
+      "question_count": 2,
+      "years": [
+        2022,
+        2024
+      ],
+      "keywords": [],
+      "why": "Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 8,
+      "topic": "Principal component analysis",
+      "importance_label": "Low",
+      "importance_score": 33.3,
+      "paper_count": 1,
+      "question_count": 1,
+      "years": [
+        2024
+      ],
+      "keywords": [
+        "dimensionality reduction"
+      ],
+      "why": "Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 9,
+      "topic": "Evaluation metrics",
+      "importance_label": "Low",
+      "importance_score": 0.0,
+      "paper_count": 0,
+      "question_count": 0,
+      "years": [],
+      "keywords": [],
+      "why": "Appeared in 0 of 4 papers; 0 questions.",
+      "confidence": "high"
+    },
+    {
+      "rank": 10,
+      "topic": "Reinforcement learning",
+      "importance_label": "Low",
+      "importance_score": 0.0,
+      "paper_count": 0,
+      "question_count": 0,
+      "years": [],
+      "keywords": [],
+      "why": "Appeared in 0 of 4 papers; 0 questions.",
+      "confidence": "high"
+    }
+  ],
+  "discovered_topic_frequency": {
+    "total_questions": 29,
+    "total_papers": 4,
+    "topic_source": "discovered_from_questions",
+    "topics": [
+      {
+        "topic": "Neural Network",
+        "question_count": 4,
+        "paper_count": 4,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2024.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "total_marks": 40,
+        "share_of_questions_pct": 13.8,
+        "share_of_marks_pct": 20.4,
+        "importance_score": 100.0,
+        "keywords": [
+          "function"
+        ],
+        "question_types": {
+          "explain": 4
+        },
+        "example_questions": [
+          "Explain the working of a neural network and its activation functions.",
+          "Discuss the training of a neural network using backpropagation.",
+          "Describe how artificial neural networks function."
+        ],
+        "question_ids": [
+          "paper_2022-Q4",
+          "paper_2023-Q4",
+          "paper_2024-Q5",
+          "paper_2025-Q4"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 1,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "K-means Clustering",
+        "question_count": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "total_marks": 30,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 15.3,
+        "importance_score": 80.0,
+        "keywords": [
+          "algorithm"
+        ],
+        "question_types": {
+          "explain": 3
+        },
+        "example_questions": [
+          "Describe the K-means algorithm. How is the number of clusters chosen?",
+          "Describe the K-means clustering procedure and its limitations.",
+          "Discuss the K-means clustering algorithm with an example."
+        ],
+        "question_ids": [
+          "paper_2022-Q6",
+          "paper_2023-Q6",
+          "paper_2025-Q5"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 2,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Overfitting",
+        "question_count": 4,
+        "paper_count": 4,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2024.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2024,
+          2025
+        ],
+        "total_marks": 12,
+        "share_of_questions_pct": 13.8,
+        "share_of_marks_pct": 6.1,
+        "importance_score": 75.5,
+        "keywords": [],
+        "question_types": {
+          "define": 4
+        },
+        "example_questions": [
+          "Define overfitting and explain one technique to reduce it.",
+          "What is overfitting and why does it occur?",
+          "What is overfitting? How can it be avoided?"
+        ],
+        "question_ids": [
+          "paper_2022-Q1",
+          "paper_2023-Q1",
+          "paper_2024-Q2",
+          "paper_2025-Q1"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 3,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 12 marks (6.1% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Gradient Descent",
+        "question_count": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "total_marks": 23,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 11.7,
+        "importance_score": 73.9,
+        "keywords": [
+          "learning rate",
+          "rate"
+        ],
+        "question_types": {
+          "define": 1,
+          "explain": 2
+        },
+        "example_questions": [
+          "Explain gradient descent and the effect of the learning rate.",
+          "Explain gradient descent and its variants.",
+          "What is the learning rate in gradient descent?"
+        ],
+        "question_ids": [
+          "paper_2022-Q2",
+          "paper_2023-Q5",
+          "paper_2025-Q7"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 4,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Support Vector Machine",
+        "question_count": 3,
+        "paper_count": 3,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2022,
+          2023,
+          2025
+        ],
+        "total_marks": 23,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 11.7,
+        "importance_score": 73.9,
+        "keywords": [
+          "kernel"
+        ],
+        "question_types": {
+          "define": 2,
+          "explain": 1
+        },
+        "example_questions": [
+          "Explain support vector machines and kernel functions.",
+          "What is a support vector machine? Explain the role of the kernel.",
+          "Define overfitting in machine learning."
+        ],
+        "question_ids": [
+          "paper_2022-Q1",
+          "paper_2023-Q7",
+          "paper_2025-Q6"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 5,
+        "importance_label": "High",
+        "confidence": "high",
+        "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Decision Trees",
+        "question_count": 3,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2022,
+          2024
+        ],
+        "total_marks": 20,
+        "share_of_questions_pct": 10.3,
+        "share_of_marks_pct": 10.2,
+        "importance_score": 53.3,
+        "keywords": [
+          "pruning"
+        ],
+        "question_types": {
+          "explain": 3
+        },
+        "example_questions": [
+          "Explain how decision trees are built and pruned.",
+          "Describe how a decision tree chooses a split using information gain.",
+          "Explain pruning of decision trees."
+        ],
+        "question_ids": [
+          "paper_2022-Q5a",
+          "paper_2022-Q5b",
+          "paper_2024-Q4"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 6,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Bias",
+        "question_count": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2022.pdf",
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2022,
+          2024
+        ],
+        "total_marks": 20,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 10.2,
+        "importance_score": 53.3,
+        "keywords": [
+          "variance"
+        ],
+        "question_types": {
+          "explain": 2
+        },
+        "example_questions": [
+          "Explain the bias and variance trade-off in model selection.",
+          "Explain the bias-variance tradeoff."
+        ],
+        "question_ids": [
+          "paper_2022-Q7",
+          "paper_2024-Q6"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 7,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Confusion Matrix",
+        "question_count": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "total_marks": 6,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 3.1,
+        "importance_score": 47.8,
+        "keywords": [],
+        "question_types": {
+          "define": 2
+        },
+        "example_questions": [
+          "What is a confusion matrix?",
+          "What is a confusion matrix?"
+        ],
+        "question_ids": [
+          "paper_2023-Q3",
+          "paper_2025-Q2"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 8,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 6 marks (3.1% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Regularization",
+        "question_count": 2,
+        "paper_count": 2,
+        "papers": [
+          "ML Past Paper 2023.pdf",
+          "ML Past Paper 2025.pdf"
+        ],
+        "years": [
+          2023,
+          2025
+        ],
+        "total_marks": 6,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 3.1,
+        "importance_score": 47.8,
+        "keywords": [],
+        "question_types": {
+          "define": 1,
+          "short_note": 1
+        },
+        "example_questions": [
+          "Write a short note on regularization.",
+          "Define regularization."
+        ],
+        "question_ids": [
+          "paper_2023-Q2",
+          "paper_2025-Q3"
+        ],
+        "recurring": true,
+        "one_off": false,
+        "rank": 9,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 6 marks (3.1% of all marks); usually asked as 'define' questions."
+      },
+      {
+        "topic": "Backpropagation",
+        "question_count": 2,
+        "paper_count": 1,
+        "papers": [
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2024
+        ],
+        "total_marks": 13,
+        "share_of_questions_pct": 6.9,
+        "share_of_marks_pct": 6.6,
+        "importance_score": 36.0,
+        "keywords": [],
+        "question_types": {
+          "explain": 2
+        },
+        "example_questions": [
+          "Explain the term backpropagation.",
+          "Discuss the training of a neural network using backpropagation."
+        ],
+        "question_ids": [
+          "paper_2024-Q3",
+          "paper_2024-Q5"
+        ],
+        "recurring": false,
+        "one_off": false,
+        "rank": 10,
+        "importance_label": "Medium",
+        "confidence": "high",
+        "why": "Appeared in 1 of 4 papers (2024); 2 questions worth 13 marks (6.6% of all marks); usually asked as 'explain' questions."
+      },
+      {
+        "topic": "Principal Component Analysis",
+        "question_count": 1,
+        "paper_count": 1,
+        "papers": [
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2024
+        ],
+        "total_marks": 10,
+        "share_of_questions_pct": 3.4,
+        "share_of_marks_pct": 5.1,
+        "importance_score": 33.3,
+        "keywords": [
+          "dimensionality reduction"
+        ],
+        "question_types": {
+          "explain": 1
+        },
+        "example_questions": [
+          "Explain principal component analysis for dimensionality reduction."
+        ],
+        "question_ids": [
+          "paper_2024-Q7"
+        ],
+        "recurring": false,
+        "one_off": true,
+        "rank": 11,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions; asked only once so far."
+      },
+      {
+        "topic": "Precision",
+        "question_count": 1,
+        "paper_count": 1,
+        "papers": [
+          "ML Past Paper 2024.pdf"
+        ],
+        "years": [
+          2024
+        ],
+        "total_marks": 3,
+        "share_of_questions_pct": 3.4,
+        "share_of_marks_pct": 1.5,
+        "importance_score": 27.2,
+        "keywords": [
+          "recall"
+        ],
+        "question_types": {
+          "define": 1
+        },
+        "example_questions": [
+          "Define precision and recall."
+        ],
+        "question_ids": [
+          "paper_2024-Q1"
+        ],
+        "recurring": false,
+        "one_off": true,
+        "rank": 12,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 1 of 4 papers (2024); 1 question worth 3 marks (1.5% of all marks); usually asked as 'define' questions; asked only once so far."
+      },
+      {
+        "topic": "Unsupervised Learning",
+        "question_count": 1,
+        "paper_count": 1,
+        "papers": [
+          "ML Past Paper 2022.pdf"
+        ],
+        "years": [
+          2022
+        ],
+        "total_marks": 3,
+        "share_of_questions_pct": 3.4,
+        "share_of_marks_pct": 1.5,
+        "importance_score": 13.9,
+        "keywords": [
+          "supervised"
+        ],
+        "question_types": {
+          "list": 1
+        },
+        "example_questions": [
+          "State the difference between supervised and unsupervised learning."
+        ],
+        "question_ids": [
+          "paper_2022-Q3"
+        ],
+        "recurring": false,
+        "one_off": true,
+        "rank": 13,
+        "importance_label": "Low",
+        "confidence": "high",
+        "why": "Appeared in 1 of 4 papers (2022); 1 question worth 3 marks (1.5% of all marks); usually asked as 'list' questions; asked only once so far."
+      }
+    ],
+    "notes": [
+      "A question that mentions several topics counts toward each of them, so topic shares can add up to more than 100%."
+    ],
+    "scoring_basis": "recurrence across papers (45%) + exam weight (35%) + recency (20%)"
+  }
+}

@@ -1,0 +1,163 @@
+[
+  {
+    "rank": 1,
+    "topic": "Neural networks",
+    "importance_label": "High",
+    "importance_score": 100.0,
+    "paper_count": 4,
+    "question_count": 4,
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "keywords": [
+      "function"
+    ],
+    "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 4 questions worth 40 marks (20.4% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 2,
+    "topic": "K-means clustering",
+    "importance_label": "High",
+    "importance_score": 80.0,
+    "paper_count": 3,
+    "question_count": 3,
+    "years": [
+      2022,
+      2023,
+      2025
+    ],
+    "keywords": [
+      "algorithm"
+    ],
+    "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 30 marks (15.3% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 3,
+    "topic": "Overfitting and regularization",
+    "importance_label": "High",
+    "importance_score": 78.1,
+    "paper_count": 4,
+    "question_count": 5,
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "keywords": [],
+    "why": "Appeared in 4 of 4 papers (2022, 2023, 2024, 2025); 5 questions worth 15 marks (7.7% of all marks); usually asked as 'define' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 4,
+    "topic": "Gradient descent",
+    "importance_label": "High",
+    "importance_score": 73.9,
+    "paper_count": 3,
+    "question_count": 3,
+    "years": [
+      2022,
+      2023,
+      2025
+    ],
+    "keywords": [
+      "learning rate"
+    ],
+    "why": "Appeared in 3 of 4 papers (2022, 2023, 2025); 3 questions worth 23 marks (11.7% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 5,
+    "topic": "Support vector machines",
+    "importance_label": "Medium",
+    "importance_score": 60.0,
+    "paper_count": 2,
+    "question_count": 2,
+    "years": [
+      2023,
+      2025
+    ],
+    "keywords": [
+      "kernel"
+    ],
+    "why": "Appeared in 2 of 4 papers (2023, 2025); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'define' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 6,
+    "topic": "Decision trees",
+    "importance_label": "Medium",
+    "importance_score": 53.3,
+    "paper_count": 2,
+    "question_count": 3,
+    "years": [
+      2022,
+      2024
+    ],
+    "keywords": [
+      "pruning"
+    ],
+    "why": "Appeared in 2 of 4 papers (2022, 2024); 3 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 7,
+    "topic": "Bias-variance tradeoff",
+    "importance_label": "Medium",
+    "importance_score": 53.3,
+    "paper_count": 2,
+    "question_count": 2,
+    "years": [
+      2022,
+      2024
+    ],
+    "keywords": [],
+    "why": "Appeared in 2 of 4 papers (2022, 2024); 2 questions worth 20 marks (10.2% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 8,
+    "topic": "Principal component analysis",
+    "importance_label": "Low",
+    "importance_score": 33.3,
+    "paper_count": 1,
+    "question_count": 1,
+    "years": [
+      2024
+    ],
+    "keywords": [
+      "dimensionality reduction"
+    ],
+    "why": "Appeared in 1 of 4 papers (2024); 1 question worth 10 marks (5.1% of all marks); usually asked as 'explain' questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 9,
+    "topic": "Evaluation metrics",
+    "importance_label": "Low",
+    "importance_score": 0.0,
+    "paper_count": 0,
+    "question_count": 0,
+    "years": [],
+    "keywords": [],
+    "why": "Appeared in 0 of 4 papers; 0 questions.",
+    "confidence": "high"
+  },
+  {
+    "rank": 10,
+    "topic": "Reinforcement learning",
+    "importance_label": "Low",
+    "importance_score": 0.0,
+    "paper_count": 0,
+    "question_count": 0,
+    "years": [],
+    "keywords": [],
+    "why": "Appeared in 0 of 4 papers; 0 questions.",
+    "confidence": "high"
+  }
+]
