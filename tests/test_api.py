@@ -253,3 +253,12 @@ def test_db_not_locked_while_embedding(settings, llm, pdfs):
         doc = upload(c, pdfs["biology"], subject_name="Biology")
         assert c.get(f"/api/documents/{doc['id']}/status").json()["status"] == "ready"
     assert lock_errors == []
+
+
+def test_abstention_with_explanation_is_not_grounded(client, pdfs, llm):
+    """The model sometimes explains before abstaining; stripping the token must not leave an 'answer'."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "The passages describe photosynthesis and mitosis but do not explain this topic. NOT_FOUND"
+    body = client.post("/api/chat/ask", json={"question": "Explain photosynthesis enzymes kinetics",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is False and body["sources"] == []

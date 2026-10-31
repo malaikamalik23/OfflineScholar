@@ -78,3 +78,23 @@ def test_startup_sweep_keeps_referenced_uploads(client, pdfs, settings, llm):
     with TestClient(create_app(settings, build_services(settings, llm=llm))) as c:
         assert c.get("/api/documents").json()[0]["status"] == "ready"
     assert len(list(settings.uploads_dir.glob("*.pdf"))) == 1
+
+
+def test_index_save_retries_when_file_briefly_locked(tmp_path, monkeypatch):
+    """Windows: os.replace raises PermissionError while antivirus/sync tools hold the index file."""
+    import numpy as np
+
+    from ai_engine.vector_store import VectorStore
+
+    store = VectorStore(tmp_path, lambda: 4)
+    real_replace, calls = Path.replace, []
+
+    def flaky(self, target):
+        calls.append(target)
+        if len(calls) < 3:
+            raise PermissionError(5, "Access is denied")
+        return real_replace(self, target)
+
+    monkeypatch.setattr(Path, "replace", flaky)
+    store.add(1, [7], np.eye(4, dtype=np.float32)[:1])
+    assert len(calls) == 3 and (tmp_path / "subject_1.faiss").exists()

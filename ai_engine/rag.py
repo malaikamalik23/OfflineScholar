@@ -104,9 +104,11 @@ def _source(p: RetrievedChunk) -> Source:
 
 def _is_refusal(text: str) -> bool:
     stripped = text.strip().strip(".!`'\" ")
-    return not stripped or stripped.upper() == NOT_FOUND_TOKEN or (
-        NOT_FOUND_TOKEN in text.upper() and len(stripped) < 60
-    )
+    if not stripped or stripped.upper() == NOT_FOUND_TOKEN:
+        return True
+    # "The passages don't mention X. NOT_FOUND" must not become a grounded answer once the token is
+    # stripped: the token without any citation means the model abstained.
+    return NOT_FOUND_TOKEN in text.upper() and (len(stripped) < 60 or not _CITATION.search(text))
 
 
 def answer_question(
