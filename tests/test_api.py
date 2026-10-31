@@ -220,3 +220,36 @@ def test_paraphrased_answer_from_passages_is_kept(client, pdfs, llm):
     body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
                                                "subject_id": doc["subject_id"]}).json()
     assert body["grounded"] is True and body["sources"][0]["page_number"] == 1
+
+
+def test_db_not_locked_while_embedding(settings, llm, pdfs):
+    """Regression: chunks were inserted (taking SQLite's write lock) and only then embedded. A big PDF
+    embeds for 30 s+ on a laptop CPU, so concurrent uploads/deletes/quiz submits hit 'database is locked'."""
+    import sqlite3
+
+    from fastapi.testclient import TestClient
+
+    from ai_engine.embeddings import HashingEmbedder
+    from ai_engine.runtime import build_services
+    from backend.main import create_app
+
+    db_file = settings.data_dir / "offline_scholar.db"
+    lock_errors: list[str] = []
+
+    class ProbingEmbedder(HashingEmbedder):
+        def embed(self, texts):
+            if len(texts) > 1:  # document chunks, not a query
+                con = sqlite3.connect(db_file, timeout=0.2)
+                try:
+                    con.execute("BEGIN IMMEDIATE")  # what any other writer needs
+                    con.execute("ROLLBACK")
+                except sqlite3.OperationalError as exc:
+                    lock_errors.append(str(exc))
+                finally:
+                    con.close()
+            return super().embed(texts)
+
+    with TestClient(create_app(settings, build_services(settings, embedder=ProbingEmbedder(), llm=llm))) as c:
+        doc = upload(c, pdfs["biology"], subject_name="Biology")
+        assert c.get(f"/api/documents/{doc['id']}/status").json()["status"] == "ready"
+    assert lock_errors == []
