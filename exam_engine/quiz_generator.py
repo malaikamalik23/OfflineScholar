@@ -108,14 +108,71 @@ def _finish(topic, question, correct, distractors, explanation, difficulty, src,
 
 
 # --------------------------------------------------------------------------- extractive
+_BAD_TERM_WORDS = {"we", "you", "they", "it", "this", "that", "these", "those", "here", "there", "our", "your",
+                   "each", "every", "can", "will", "would", "should", "may", "might", "then", "thus", "also",
+                   "assuming", "another", "since", "because", "if", "when", "while", "where", "which", "what",
+                   "however", "note", "suppose", "given", "let", "so", "but", "and", "or", "not", "no"}
+
+
+def _clean_term(term: str) -> bool:
+    """A usable definition subject: a short plain noun phrase, not a sentence fragment."""
+    words = term.split()
+    if not 1 <= len(words) <= 4:
+        return False
+    if any(w.lower().strip(",.;:") in _BAD_TERM_WORDS for w in words):
+        return False
+    return all(re.fullmatch(r"[A-Za-z][A-Za-z\-]*", w) for w in words)
+
+
+def _clean_definition(defn: str) -> bool:
+    """Reject extracted 'definitions' that are formulas, footnote glue or fragments."""
+    d = defn.strip()
+    if not d or not d[0].isalpha() or not d.isascii():        # math symbols / Greek letters / ligature debris
+        return False
+    letters = sum(ch.isalpha() or ch.isspace() for ch in d)
+    if letters / len(d) < 0.9:                                  # digits, parentheses, operators
+        return False
+    return len(d.split()) >= 4 and not re.search(r"\b\d+[A-Z]\w*", d)
+
+
+_BAD_CONCEPT_WORDS = {"figure", "fig", "table", "eq", "equation", "words", "word", "example", "examples", "case", "way",
+                      "note", "lecture", "section", "page", "only", "thing", "things", "fact", "idea", "number",
+                      "sense", "terms", "term", "kind", "type", "point", "part", "step", "result", "results"}
+
+
+def _clean_concept(surface: str) -> bool:
+    """A phrase worth asking about: plain words, no figure/equation debris, no filler."""
+    words = surface.split()
+    if not 1 <= len(words) <= 3 or not surface.isascii():
+        return False
+    return all(re.fullmatch(r"[A-Za-z]{3,}(?:-[A-Za-z]{2,})?", w) and w.lower() not in _BAD_CONCEPT_WORDS
+               and w.lower() not in _BAD_TERM_WORDS for w in words)
+
+
+def _clean_sentence(text: str) -> bool:
+    """Reject formula-heavy, table-like or fragmentary sentences as quiz material."""
+    t = text.strip()
+    if not t.isascii() or not 8 <= len(t.split()) <= 40:
+        return False
+    if sum(ch.isalpha() or ch.isspace() for ch in t) / len(t) < 0.93:
+        return False
+    if re.search(r"\b(?:Eq|Fig|Figure|Table)\b|\b(\w)(?:\s+\1){2,}\b", t):
+        return False
+    # must make sense on its own: no sentences that lean on the previous one
+    if re.match(r"(?:this|these|that|those|it|they|so|thus|then|in other words|another|here|there|we|however|also|"
+                r"note|since|because|now|but|and|or|for example|as a result)\b", t, re.I):
+        return False
+    return t[0].isalpha()
+
+
 def _definition_candidates(sents):
     out = []
     for s in sents:
         m = _DEF_RE.match(s["text"].strip())
-        if not m:
+        if not m or not _clean_sentence(s["text"]):
             continue
         term = m.group("term").strip()
-        if len(term.split()) > 5 or term.lower() in {"it", "this", "that", "there", "which"}:
+        if not _clean_term(term) or not _clean_definition(m.group("defn")):
             continue
         if not content_terms(term) or all(w in GENERIC_TERMS for w in tokenize(term)):
             continue
@@ -178,10 +235,10 @@ def _extractive(sents_topic, sents_all, topic, n, rng) -> list[dict]:
                           f"The notes state: \"{d['sent']['text']}\"", "basic", _source(d["sent"]), "extractive", rng))
         used.add(d["sent"]["text"])
 
-    pool = _concept_pool(sents_all)
+    pool = {st: v for st, v in _concept_pool(sents_all).items() if _clean_concept(v[0])}
     t_terms = set(content_terms(topic))
     for s in sents_topic:
-        if s["text"] in used or len(pool) < 4:
+        if s["text"] in used or len(pool) < 4 or not _clean_sentence(s["text"]):
             continue
         here = []
         for stems, _sf in candidate_phrases(s["text"], max_n=2):
@@ -330,6 +387,10 @@ def generate_quiz(context, topic: str, n_questions: int = 5, llm: Callable[[str]
         report["from_extractive"] = len(questions) - report["from_llm"]
 
     report["generated"] = len(questions)
+    if report["from_extractive"]:
+        report["notes"].append("Some questions are simple fill-in-the-blank / definition items taken directly from the "
+                               "notes. Run the local LLM (Ollama) for more natural questions; they are checked "
+                               "against the notes in the same way.")
     if len(questions) < n_questions:
         report["notes"].append(
             f"Only {len(questions)} well-supported question(s) could be generated from the supplied material; "

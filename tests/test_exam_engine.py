@@ -401,3 +401,14 @@ def test_web_printed_syllabus_keeps_only_topics():
             "Boosting, margin, and complexity\nHMMs (cont.)\nTerms and Conditions\n© 2001–2026 MIT")
     names = [t["name"] for t in syllabus_topics_from([{"text": text}])]
     assert names == ["linear classification", "perceptron update rule", "Boosting", "margin", "complexity", "HMMs"]
+
+
+def test_quiz_skips_fragments_formulas_and_context_dependent_sentences():
+    from exam_engine.quiz_generator import _clean_concept, _clean_definition, _clean_sentence, _clean_term
+
+    assert not _clean_term("Assuming each example") and not _clean_term("goal here") and _clean_term("Probability estimates")
+    assert not _clean_definition("that the vector of kθk2 + X log 1 + exp −yt(θ") and _clean_definition("a function that maps data to parameters")
+    assert not _clean_sentence("This is often referred to as the estimation problem in many textbooks today.")
+    assert not _clean_sentence("X X X X X 6 The sum in Eq.(19) is the difference between probabilities.")
+    assert _clean_sentence("Regularization is used to help stabilize the minimization of the objective function.")
+    assert not _clean_concept("Figure 2a") and not _clean_concept("other words") and _clean_concept("decision boundary")
