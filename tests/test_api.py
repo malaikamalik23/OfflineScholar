@@ -294,3 +294,23 @@ def test_echoed_page_headers_are_removed_from_answer(client, pdfs, llm):
                                                "subject_id": doc["subject_id"]}).json()
     assert body["grounded"] is True and "page 1)" not in body["answer"]
     assert body["answer"].startswith("[1] Photosynthesis takes place in the chloroplasts")
+
+
+@pytest.mark.parametrize("token", ["NOTFOUND.", "NOT FOUND", "NOT-FOUND."])
+def test_misspelled_not_found_token_is_an_abstention(client, pdfs, llm, token):
+    """Regression (real llama3.2:3b run): the model wrote NOTFOUND / NOT FOUND instead of NOT_FOUND. With an
+    explanation in the passages' own words before it, only the abstention parsing can catch it."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("The passages only say that photosynthesis takes place in the chloroplasts, where "
+                 "chlorophyll absorbs sunlight. " + token)
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False and body["sources"] == []
+
+
+def test_bare_lowercase_token_is_an_abstention(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "not_found"
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is False

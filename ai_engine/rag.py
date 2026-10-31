@@ -11,6 +11,8 @@ from .runtime import Services, get_services
 log = logging.getLogger(__name__)
 
 NOT_FOUND_TOKEN = "NOT_FOUND"
+# llama3.2:3b often writes "NOTFOUND" or "NOT FOUND" instead of the exact token.
+_NOT_FOUND = re.compile(r"\bNOT[ _-]?FOUND\b")  # upper case only: "not found" in a sentence is no abstention
 NOT_FOUND_MESSAGE = (
     "I couldn't find this in your uploaded materials. Try rephrasing the question, "
     "or upload notes that cover this topic."
@@ -121,11 +123,11 @@ def _strip_echo(text: str) -> str:
 
 def _is_refusal(text: str) -> bool:
     stripped = text.strip().strip(".!`'\" ")
-    if not stripped or stripped.upper() == NOT_FOUND_TOKEN:
+    if not stripped or _NOT_FOUND.fullmatch(stripped.upper()):  # the whole reply is the token, any case
         return True
     # "The passages don't mention X. NOT_FOUND" must not become a grounded answer once the token is
     # stripped: the token without any citation means the model abstained.
-    if NOT_FOUND_TOKEN in text.upper() and (len(stripped) < 60 or not _CITATION.search(text)):
+    if _NOT_FOUND.search(text) and (len(stripped) < 60 or not _CITATION.search(text)):
         return True
     first_sentence = re.split(r"(?<=[.!?])\s+", stripped, maxsplit=1)[0]
     return bool(_PROSE_REFUSAL.search(first_sentence))
@@ -153,7 +155,7 @@ def answer_question(
     if _is_refusal(raw):
         return Answer(NOT_FOUND_MESSAGE, grounded=False, sources=[], confidence=passages[0].score)
 
-    text = _strip_echo(raw.replace(NOT_FOUND_TOKEN, ""))
+    text = _strip_echo(_NOT_FOUND.sub("", raw))
     if not text:
         return Answer(NOT_FOUND_MESSAGE, grounded=False, sources=[], confidence=passages[0].score)
     cited = sorted({int(n) for n in _CITATION.findall(text) if 1 <= int(n) <= len(passages)})
