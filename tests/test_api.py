@@ -10,7 +10,7 @@ from ai_engine.interfaces import (
     DocumentNotFoundError, generate_embeddings, get_document_chunks, retrieve_context,
 )
 
-from .conftest import upload
+from .conftest import BIOLOGY, upload
 
 
 def test_health(client):
@@ -265,3 +265,32 @@ def test_abstention_with_explanation_is_not_grounded(client, pdfs, llm):
                                                "subject_id": doc["subject_id"]}).json()
     assert llm.calls, "the model must have been asked"
     assert body["grounded"] is False and body["sources"] == []
+
+
+def test_general_knowledge_hidden_behind_echoed_passages_is_rejected(client, pdfs, llm):
+    """Regression (real phi3:mini run): the model answered from general knowledge and then pasted the
+    prompt's passages, whose copied words made the answer look supported."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("Mitochondria generate ATP using a proton gradient. [1] (Biology 01.pdf, page 1) " + BIOLOGY[0])
+    body = client.post("/api/chat/ask", json={"question": "How do the light reactions of photosynthesis make ATP?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False
+
+
+def test_refusal_in_prose_is_not_grounded(client, pdfs, llm):
+    """Regression (real phi3:mini run): refused in words instead of NOT_FOUND, then echoed the passages."""
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = ("I'm sorry, but the provided context passages do not contain information about this. "
+                 "Context passages: [1] (Biology 01.pdf, page 1) " + BIOLOGY[0])
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert llm.calls and body["grounded"] is False and body["sources"] == []
+
+
+def test_echoed_page_headers_are_removed_from_answer(client, pdfs, llm):
+    doc = upload(client, pdfs["biology"], subject_name="Biology")
+    llm.reply = "[1] (Biology 01.pdf, page 1) Photosynthesis takes place in the chloroplasts. [1]"
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
+                                               "subject_id": doc["subject_id"]}).json()
+    assert body["grounded"] is True and "page 1)" not in body["answer"]
+    assert body["answer"].startswith("[1] Photosynthesis takes place in the chloroplasts")
