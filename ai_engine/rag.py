@@ -63,7 +63,7 @@ def answer_support(answer: str, question: str, passages: list[RetrievedChunk]) -
     """Fraction of the answer's content words that occur in the question or the given passages.
 
     A cheap, deterministic hallucination guard. Measured on real lecture slides (qwen2.5:3b, llama3.2:3b,
-    phi3:mini; echoed passages cut first): 132 faithful answers scored >= 0.62, the 5 answers built from
+    phi3:mini; echoed passages cut first): 187 faithful answers scored >= 0.62, the 5 answers built from
     outside knowledge 0.12-0.50. See docs/EVALUATION.md.
     """
     words = _content_words(_CITATION.sub(" ", answer))
