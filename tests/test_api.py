@@ -258,7 +258,10 @@ def test_db_not_locked_while_embedding(settings, llm, pdfs):
 def test_abstention_with_explanation_is_not_grounded(client, pdfs, llm):
     """The model sometimes explains before abstaining; stripping the token must not leave an 'answer'."""
     doc = upload(client, pdfs["biology"], subject_name="Biology")
-    llm.reply = "The passages describe photosynthesis and mitosis but do not explain this topic. NOT_FOUND"
-    body = client.post("/api/chat/ask", json={"question": "Explain photosynthesis enzymes kinetics",
+    # Words all come from the passages, so the support guard alone would let this through.
+    llm.reply = ("The passages only say that photosynthesis takes place in the chloroplasts, where "
+                 "chlorophyll absorbs sunlight. NOT_FOUND")
+    body = client.post("/api/chat/ask", json={"question": "Where does photosynthesis take place?",
                                                "subject_id": doc["subject_id"]}).json()
+    assert llm.calls, "the model must have been asked"
     assert body["grounded"] is False and body["sources"] == []
