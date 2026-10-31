@@ -29,11 +29,12 @@ Rules:
   passages do not contain, even if you know them.
 - The passages may use different words than the question (for example "feature scaling" for
   "normalization"). If a passage answers the question, answer it.
-- If the passages mention the topic but do not contain what is asked, reply {NOT_FOUND_TOKEN}.
+- If the passages say something about the topic but do not fully answer the question, give what they do
+  say (with citations), then add one short sentence that the notes do not cover the rest.
 - Copy numbers, names and formulas exactly as they appear. Never calculate or guess a value.
 - After each fact, cite the passage it comes from, like [1] or [2].
 - Be brief: at most 4 sentences or a short bullet list.
-- If no passage answers the question, reply with exactly {NOT_FOUND_TOKEN}."""
+- If no passage is about the topic of the question, reply with exactly {NOT_FOUND_TOKEN}."""
 
 _CITATION = re.compile(r"\[(\d+)\]")
 _EXCERPT_CHARS = 400

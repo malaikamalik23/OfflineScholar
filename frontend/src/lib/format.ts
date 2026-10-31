@@ -26,4 +26,5 @@ export const mb = (bytes: number) => {
 };
 
 /** PDFs often keep typographic ligatures (ﬁ, ﬂ); show them as normal letters. */
-export const clean = (s: string) => s.normalize("NFKC");
+// eslint-disable-next-line no-control-regex
+export const clean = (s: string) => s.normalize("NFKC").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, " ");
