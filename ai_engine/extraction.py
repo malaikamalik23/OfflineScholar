@@ -12,6 +12,11 @@ from pathlib import Path
 import pymupdf as fitz  # PyMuPDF
 
 MIN_PAGE_CHARS = 20  # fewer characters than this -> page treated as image-only
+# A page with a short text layer (e.g. a slide title) whose images cover a good part of the page is
+# OCR'd as well, so content shown only in pictures (tables, formulas, diagrams) becomes searchable.
+# Measured on real lecture slides: such pages have ~40-150 chars of text and images on 14-40% of the page.
+SPARSE_PAGE_CHARS = 200
+MIN_IMAGE_COVERAGE = 0.10
 
 
 class ExtractionError(Exception):
@@ -73,6 +78,17 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+def _image_coverage(page: fitz.Page) -> float:
+    """Fraction of the page area covered by images (overlaps counted twice; capped at 1)."""
+    area = 0.0
+    for img in page.get_images():
+        try:
+            area += sum(abs(r.get_area()) for r in page.get_image_rects(img[0]))
+        except Exception:  # noqa: BLE001 - unusual image references: ignore
+            continue
+    return min(1.0, area / page.rect.get_area()) if page.rect.get_area() else 0.0
+
+
 def _ocr_page(page: fitz.Page, language: str, dpi: int, binary: str) -> str:
     png = page.get_pixmap(dpi=dpi).tobytes("png")
     proc = subprocess.run(
@@ -129,6 +145,14 @@ def extract_document(
                         used_ocr = True
                     elif page.get_images():
                         image_only_without_ocr += 1
+                elif can_ocr and len(text) < SPARSE_PAGE_CHARS and _image_coverage(page) >= MIN_IMAGE_COVERAGE:
+                    # Slide with just a title in the text layer and its content in a picture.
+                    try:
+                        ocr_text = clean_text(_ocr_page(page, ocr_language, ocr_dpi, binary))
+                        if len(ocr_text) > len(text):
+                            text, used_ocr = ocr_text, True
+                    except Exception as exc:  # keep the text layer we already have
+                        warnings.append(f"Page {number}: OCR of embedded images failed: {exc}")
                 if len(text) >= MIN_PAGE_CHARS or (text and not used_ocr and not page.get_images()):
                     pages.append(PageText(number, text, used_ocr))
             except Exception as exc:
